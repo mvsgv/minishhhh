@@ -1,5 +1,7 @@
 # minishhhh
 🗺️ TON PLAN DE ROUTE MINISHELL – ÉTAPE PAR ÉTAPE
+
+
 🟢 ÉTAPE 1 : LIRE UNE COMMANDE SIMPLE
 
 🔧 Objectif : afficher un prompt, lire ce que l'utilisateur tape, et afficher ce texte.
@@ -19,6 +21,8 @@
 minishell$ ls -l
 
 tu dois voir s’afficher : ls -l → (juste pour tester)
+
+
 🟡 ÉTAPE 2 : CRÉER TON input_checker()
 
 🔧 Objectif : détecter les erreurs de syntaxe basiques avant d'exécuter une commande.
@@ -32,6 +36,8 @@ tu dois voir s’afficher : ls -l → (juste pour tester)
     Gérer les redirections seules (> sans fichier après)
 
 ➡️ Si la commande est fausse, afficher une erreur et ne pas continuer.
+
+
 🔵 ÉTAPE 3 : DÉCOUPER LA COMMANDE (TOKENIZER/PARSER)
 
 🔧 Objectif : transformer la ligne en une liste de mots/commandes utilisables
@@ -45,6 +51,8 @@ tu dois voir s’afficher : ls -l → (juste pour tester)
     Créer une structure t_cmd pour stocker les commandes
 
 ➡️ Cette étape te prépare à l’exécution.
+
+
 🟠 ÉTAPE 4 : EXÉCUTER UNE COMMANDE SIMPLE
 
 🔧 Objectif : utiliser fork() + execve() pour exécuter ls, echo, etc.
@@ -58,6 +66,8 @@ tu dois voir s’afficher : ls -l → (juste pour tester)
     Faire le fork() et waitpid() correctement
 
 ➡️ Tape ls → ça doit s’exécuter comme dans le vrai shell 🎉
+
+
 🟣 ÉTAPE 5 : GÉRER LES BUILTINS
 
 🔧 Objectif : implémenter les commandes internes au shell (sans execve)
@@ -69,6 +79,8 @@ tu dois voir s’afficher : ls -l → (juste pour tester)
     Tu peux faire une fonction is_builtin() et run_builtin()
 
     Certains builtins doivent modifier le shell directement (pas avec fork)
+
+
 
 🟤 ÉTAPE 6 : GÉRER L’ENVIRONNEMENT (env, export, unset)
 
@@ -83,6 +95,8 @@ tu dois voir s’afficher : ls -l → (juste pour tester)
     Gérer les = pour ajouter des variables
 
 ➡️ Tu pourras tester avec export TEST=123 && echo $TEST
+
+
 ⚫ ÉTAPE 7 : GÉRER LES REDIRECTIONS
 
 🔧 Objectif : gérer <, >, >>, <<
@@ -96,6 +110,8 @@ tu dois voir s’afficher : ls -l → (juste pour tester)
     Pour <<, lis jusqu’au délimiteur (heredoc)
 
 ➡️ Exemple à tester : cat < infile, echo hello > file, cat << EOF
+
+
 ⚪ ÉTAPE 8 : GÉRER LES PIPES
 
 🔧 Objectif : permettre des commandes liées par |
@@ -109,6 +125,8 @@ tu dois voir s’afficher : ls -l → (juste pour tester)
     Enchaîner les fork() pour chaque commande dans le pipe
 
 ➡️ Exemple à tester : ls -l | grep .c | wc -l
+
+
 🔺 ÉTAPE 9 : GÉRER LES VARIABLES D’ENVIRONNEMENT $
 
 🔧 Objectif : remplacer $VAR par sa valeur dans les arguments
@@ -120,6 +138,8 @@ tu dois voir s’afficher : ls -l → (juste pour tester)
     Chercher avec getenv() ou ta propre fonction
 
     Remplacer proprement sans casser les quotes
+
+
 
 🔻 ÉTAPE 10 : SIGNES, SIGNAUX & FINITIONS
 
