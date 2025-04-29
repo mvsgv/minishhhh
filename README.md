@@ -308,7 +308,3 @@ Les fonctions autorisée :
 - **`tgoto(cap, col, row)`** : Construit une chaîne de positionnement de curseur basée sur la capacité `cap`.
 
 - **`tput(str)`** : Écrit la chaîne de contrôle `str` sur la sortie standard.
-
----
-
-Si vous souhaitez des exemples d'utilisation pour certaines de ces fonctions ou des informations plus détaillées, n'hésitez pas à demander ! 
