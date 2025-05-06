@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:18:42 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/06 16:12:03 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:56:16 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int quotes_checker(const char *line)
 
     single_qt = 0;
     double_qt = 0;
-    while(*line++)
+    while(*line)
     {
         if (*line == '\'')
             single_qt++;

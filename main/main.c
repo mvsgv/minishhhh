@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:34:35 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/06 18:13:49 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:53:45 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int main(int argc, char **argv, char **envp)
 {
+    (void)argc;
+    (void)envp;
+    (void)argv;
     char *line;
     
     while (1)

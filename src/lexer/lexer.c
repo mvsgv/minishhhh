@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:17:17 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/06 18:38:55 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:47:23 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ t_token *lexer(const char *line)
             free(op);
        }
        else
+       {
             start = i;
             while (line[i] && !isspace(line[i]) && 
             line[i] != '|' && line[i] != '<' && line[i] != '>')
@@ -89,6 +90,7 @@ t_token *lexer(const char *line)
 			word = ft_substr(line, start, i - start);
 			add_token(&list, word, WORD);
 			free(word);           
+        }
     }
     return (list);
 }
