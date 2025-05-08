@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:27:20 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/06 17:28:05 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/08 18:13:41 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #endif
 
+#include <signal.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
