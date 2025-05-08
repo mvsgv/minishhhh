@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:17:17 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/06 18:47:23 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:38:30 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void    add_token(t_token **list, char *value, t_token_type type)
     else
     {
         t_token *tmp = *list;
-        tmp = tmp->next;
+        while (tmp->next)
+            tmp = tmp->next;
         tmp->next = new;
     }
 }
