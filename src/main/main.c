@@ -1,0 +1,57 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/24 15:34:35 by mavissar          #+#    #+#             */
+/*   Updated: 2025/05/08 20:44:59 by mavissar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../inc/Minishell.h"
+
+/*Quelle est la différence entre volatile et constant en C  ?
+Const spécifie que le pointeur ne peut pas être modifié après son initialisation;
+il est protégé contre toute modification ultérieure. 
+Le mot-clé volatile spécifie que la valeur associée au nom suivant peut être 
+modifiée par des actions autres que celles de l'application utilisateur*/
+
+int main(int argc, char **argv, char **envp)
+{
+    (void)argc;
+    (void)envp;
+    (void)argv;
+    char *line;
+    
+
+    //init structure
+    //trouver env path
+    //gerer les signaux SIGINT SIQUIT CTRL
+    while (1)
+    {
+        line = readline("\033[38;2;255;20;147mminishell$ \033[0m"); //affiche le prompt et lit une ligne 
+        if (!line)
+        {
+            printf("exit\n");
+            //en cas d erreur j affiche le message exit comme dans c=bash et je break. 
+            break;
+        }
+        if (input_checker(line) == false)
+        {
+            lexer(line);
+            t_token *tokens = lexer(line);
+            for (t_token *tmp = tokens; tmp; tmp = tmp->next)
+                printf("TOKEN: [%s] (type %d)\n", tmp->value, tmp->type);
+            free_tok(tokens);
+            free(line);
+            continue;
+        }
+        if (*line) // si la ligne est n est pas vide on la sauvegarde dans l historique 
+            add_history(line);
+        printf("%s\n", line);
+        free(line);
+    }
+    return (0);
+}

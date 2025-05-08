@@ -6,9 +6,11 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:12:24 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/08 18:13:12 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:46:53 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/Minishell.h"
 
+void    sigint(int sig);
+void    sigquit(int sig);
