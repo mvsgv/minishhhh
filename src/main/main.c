@@ -38,7 +38,7 @@ int main(int argc, char **argv, char **envp)
             //en cas d erreur j affiche le message exit comme dans c=bash et je break. 
             break;
         }
-        if (input_checker(line) == false)
+        if (input_checker(line))
         {
             lexer(line);
             t_token *tokens = lexer(line);
