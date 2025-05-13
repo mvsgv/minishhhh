@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 17:09:01 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/06 18:35:05 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/12 17:46:33 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static int     pipe_counter(char *line)
     while (line[i])
     {
         if (line[i] == '|')
-        count++;
+            count++;
+        i++;
     }
     return (count);
 }
@@ -54,5 +55,6 @@ char    **split_pipes(char *line)
             else 
                 end++;
     }
+    res[nb_cmds] = NULL; 
     return res;
 }

@@ -15,10 +15,10 @@ VPATH			=		src src/builtins src/exec src/lexer src/parser src/utils
 SRC_BUILTINS	=
 MAIN			=		main/main.c
 SRC_EXEC		=
-SRC_LEXER		=		lexer/lexer.c
+SRC_LEXER		=		lexer/lexer.c lexer/lexer_utils.c
 SRC_PARSER		=		parser/input.c parser/pipes.c
 SRC_UTILS		=		utils/ft_isspace.c utils/ft_substr.c utils/ft_strdup.c utils/utils.c \
-						utils/ft_memcpy.c utils/ft_strlen.c
+						utils/ft_memcpy.c utils/ft_strlen.c utils/ft_strncmp.c
 
 
 SRC 			=		$(MAIN) $(SRC_UTILS) $(SRC_PARSER) $(SRC_BUILTINS) \

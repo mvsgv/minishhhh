@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:27:20 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/08 18:13:41 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/12 17:51:19 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,14 @@ typedef enum e_token_type
     APPEND   // >>
 } t_token_type;
 
+typedef struct s_command{
+    char    **args;// commands and arguments
+    char    *infile;// <
+    char    *outfile;// > and >>
+    int     append;// 1 for >>, 0 for >
+    struct  s_command *next;//next command in pipeline
+} t_command;
+
 typedef struct s_token
 {
     char *value;
@@ -54,7 +62,15 @@ void add_token(t_token **list, char *value, t_token_type type);
 void free_tok(t_token *list);
 
 /*utils*/
-char *ft_strndup(char *line, int start, int end);
+char    *ft_strndup(char *line, int start, int end);
+int	    ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_isspace(int c);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
 
 /*quotes*/
 int quotes_checker(const char *line);
+
+/*lexer utils*/
+void    handle_word(const char *line, int *i, t_token **list);
+void    handle_operator(const char *line, int *i, t_token **list);
+void    handle_quote(const char *line, int *i, t_token **list);
