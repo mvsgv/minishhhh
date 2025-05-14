@@ -6,11 +6,11 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 17:09:01 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/12 17:46:33 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:31:23 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/Minishell.h"
+#include "../../inc/parser.h"
 
 static int     pipe_counter(char *line)
 {

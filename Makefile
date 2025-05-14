@@ -16,9 +16,10 @@ SRC_BUILTINS	=
 MAIN			=		main/main.c
 SRC_EXEC		=
 SRC_LEXER		=		lexer/lexer.c lexer/lexer_utils.c
-SRC_PARSER		=		parser/input.c parser/pipes.c
+SRC_PARSER		=		parser/input.c parser/pipes.c parser/parser_utils.c parser/parser.c
 SRC_UTILS		=		utils/ft_isspace.c utils/ft_substr.c utils/ft_strdup.c utils/utils.c \
-						utils/ft_memcpy.c utils/ft_strlen.c utils/ft_strncmp.c
+						utils/ft_memcpy.c utils/ft_strlen.c utils/ft_strncmp.c \
+						utils/ft_putstr_fd.c utils/ft_putchar_fd.c utils/ft_putendl_fd.c
 
 
 SRC 			=		$(MAIN) $(SRC_UTILS) $(SRC_PARSER) $(SRC_BUILTINS) \
@@ -52,22 +53,6 @@ banner:
 	@echo "$(GREEN_APPLE)     /:/  /    \/__/       /:/  /    \/__/      \::/  /      /:/  /     \:\__\      \:\__\:\__\ $(RESET)"
 	@echo "$(GREEN_APPLE)     \/__/                 \/__/                 \/__/       \/__/       \/__/       \/__/\/__/ $(RESET)"
 	@echo "\033[38;2;255;20;147m"
-	@echo "                     ▄▀░░▌"
-	@echo "                   ▄▀▐░░░▌"
-	@echo "                ▄▀▀▒▐▒░░░▌"
-	@echo "     ▄▀▀▄   ▄▄▀▀▒▒▒▒▌▒▒░░▌"
-	@echo "    ▐▒░░░▀▄▀▒▒▒▒▒▒▒▒▒▒▒▒▒█"
-	@echo "    ▌▒░░░░▒▀▄▒▒▒▒▒▒▒▒▒▒▒▒▒▀▄"
-	@echo "   ▐▒░░░░░▒▒▒▒▒▒▒▒▒▌▒▐▒▒▒▒▒▀▄"
-	@echo "   ▌▀▄░░▒▒▒▒▒▒▒▒▐▒▒▒▌▒▌▒▄▄▒▒▐"
-	@echo "   ▌▌▒▒▀▒▒▒▒▒▒▒▒▒▒▐▒▒▒▒▒█▄█▌▒▌"
-	@echo " ▄▀▒▐▒▒▒▒▒▒▒▒▒▒▒▄▀█▌▒▒▒▒▒▀▀▒▒▐   ▄"
-	@echo "▀▒▒▒▒▌▒▒▒▒▒▒▒▄▒▐███▌▄▒▒▒▒▒▒▒▄▀▀▀▀"
-	@echo "▒▒▒▒▒▐▒▒▒▒▒▄▀▒▒▒▀▀▀▒▒▒▒▄█▀░░▒▌▀▀▄▄"
-	@echo "▒▒▒▒▒▒█▒▄▄▀▒▒▒▒▒▒▒▒▒▒▒░░▐▒▀▄▀▄    ▀"
-	@echo "▒▒▒▒▒▒▒█▒▒▒▒▒▒▒▒▒▄▒▒▒▒▄▀▒▒▒▌  ▀▄"
-	@echo "▒▒▒▒▒▒▒▒▀▄▒▒▒▒▒▒▒▒▀▀▀▀▒▒▒▄▀"
-	@echo "\n"
 
 $(NAME): $(OBJ)
 	@echo "$(GREEN_APPLE)Compiling minishell...$(RESET)"

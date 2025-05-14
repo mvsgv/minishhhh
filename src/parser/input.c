@@ -6,14 +6,14 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:18:42 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/06 18:56:16 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:31:36 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/Minishell.h"
+#include "../../inc/parser.h"
 
 //si j enchaine plus de deux operateurs de suite cést qu il y a un pb d input
-bool    invalid_op(const char *line)
+static bool    invalid_op(const char *line)
 {
     while (*line)
     {
@@ -26,7 +26,7 @@ bool    invalid_op(const char *line)
     return false;
 }
 
-int quotes_checker(const char *line)
+static int quotes_checker(const char *line)
 {
     int single_qt;
     int double_qt;
@@ -44,7 +44,7 @@ int quotes_checker(const char *line)
     return (single_qt % 2 == 0 && double_qt % 2 == 0); // true or false
 }
 
-bool    pipe_err(const char *line)
+static bool    pipe_err(const char *line)
 {
     int i;
     

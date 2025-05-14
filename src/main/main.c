@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:34:35 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/12 16:13:42 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/14 12:13:35 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int main(int argc, char **argv, char **envp)
     (void)envp;
     (void)argv;
     char *line;
-    
+    t_command   *cmd;
+    t_token     *tkn;
 
 
     //init structure
@@ -61,11 +62,13 @@ int main(int argc, char **argv, char **envp)
         add_history(line);
         if (input_checker(line))
         {
-            lexer(line);
-            // t_token *tokens = lexer(line);
-            // for (t_token *tmp = tokens; tmp; tmp = tmp->next)
-            //     printf("TOKEN: [%s] (type %d)\n", tmp->value, tmp->type);
-            // free_tok(tokens);
+            tkn = lexer(line);
+            cmd = parser(tkn);
+            t_token *tokens = lexer(line);
+            for (t_token *t = tokens; t; t = t->next)
+	        printf("TOKEN: [%s] type: %d\n", t->value, t->type);
+            free_tok(tkn);
+            free_cmds(cmd);
             free(line);
             continue;
         }
