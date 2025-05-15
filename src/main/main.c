@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:34:35 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/14 12:13:35 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/15 12:57:52 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,13 @@ static bool	empty(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] && ft_isspace(line[i]))
-		i++;
-	if (i == (int)ft_strlen(line))
-	{
-		free(line);
-		return (true);
-	}
-	return (false);
+    while (line[i])
+    {
+        if (!ft_isspace(line[i]))
+            return false;
+        i++;
+    }
+    return true;
 }
 
 

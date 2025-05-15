@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:17:17 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/14 14:31:50 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/15 12:48:17 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_token *lexer(const char *line)
     list = NULL;
     while (line[i])
     {
-        if (isspace(line[i]))
+        if (ft_isspace(line[i]))
             i++;
         else if (line[i] == '\'' || line[i] == '\"')
             handle_quote(line, &i, &list);
