@@ -4,7 +4,7 @@ CFLAGS 			=		-Wall -Werror -Wextra -g3 -fsanitize=address
 RM 				= 		rm -rf
 
 MINISHELL_DIR	=		./includes/
-READLINE_DIR	=		$(HOME)/.brew/opt/readline
+READLINE_DIR	=		/opt/homebrew/opt/readline
 READLINE_LIB 	=		-L$(READLINE_DIR)/lib -lreadline -lhistory
 
 INC_DIR			=		include source /include $(READLINE_DIR)/include $MINISHELL_DIR
@@ -14,7 +14,7 @@ LDFLAGS			=		$(READLINE_LIB)
 VPATH			=		src src/builtins src/exec src/lexer src/parser src/utils
 SRC_BUILTINS	=
 MAIN			=		main/main.c
-SRC_EXEC		=
+SRC_EXEC		=		exec/exec.c
 SRC_LEXER		=		lexer/lexer.c lexer/lexer_utils.c
 SRC_PARSER		=		parser/input.c parser/pipes.c parser/parser_utils.c parser/parser.c
 SRC_UTILS		=		utils/ft_isspace.c utils/ft_substr.c utils/ft_strdup.c utils/utils.c \

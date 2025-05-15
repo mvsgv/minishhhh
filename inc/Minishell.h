@@ -22,6 +22,11 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+#include <unistd.h>
+#include <sys/wait.h>
+#include <fcntl.h>
+
+
 #include "../Libft/libft.h"
 # include "lexer.h"
 # include "parser.h"
