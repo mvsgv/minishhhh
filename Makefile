@@ -7,17 +7,19 @@ MINISHELL_DIR	=		./includes/
 READLINE_DIR	=		/opt/homebrew/opt/readline
 READLINE_LIB 	=		-L$(READLINE_DIR)/lib -lreadline -lhistory
 
+
 INC_DIR			=		include source /include $(READLINE_DIR)/include $MINISHELL_DIR
 CFLAGS			+=		$(addprefix -I, $(INC_DIR))
 LDFLAGS			=		$(READLINE_LIB)
 
 VPATH			=		src src/builtins src/exec src/lexer src/parser src/utils
-SRC_BUILTINS	=
+SRC_BUILTINS	=		builtins/builtins.c
 MAIN			=		main/main.c
 SRC_EXEC		=		exec/exec.c
 SRC_LEXER		=		lexer/lexer.c lexer/lexer_utils.c
 SRC_PARSER		=		parser/input.c parser/pipes.c parser/parser_utils.c parser/parser.c
-SRC_UTILS		=		utils/ft_isspace.c utils/ft_substr.c utils/ft_strdup.c utils/utils.c \
+SRC_UTILS		=		utils/ft_isdigit.c utils/ft_atoi.c utils/ft_strcmp.c utils/ft_isspace.c \
+						utils/ft_substr.c utils/ft_strdup.c utils/utils.c \
 						utils/ft_memcpy.c utils/ft_strlen.c utils/ft_strncmp.c \
 						utils/ft_putstr_fd.c utils/ft_putchar_fd.c utils/ft_putendl_fd.c
 

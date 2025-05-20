@@ -25,3 +25,37 @@ char    *ft_strndup(char *line, int start, int end)
     str[len] = '\0';
     return (str);
 }
+
+
+int	ft_isalnum(int c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
+		|| (c >= '0' && c <= '9'))
+		return (1);
+	else
+		return (0);
+}
+
+int	ft_isalpha(int c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (1);
+	else
+		return (0);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == (char) c)
+			break ;
+		i++;
+	}
+	if (s[i] == (char) c)
+		return ((char *) s + i);
+	return (NULL);
+}
