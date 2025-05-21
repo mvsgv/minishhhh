@@ -12,7 +12,9 @@ typedef struct s_env
 } t_env;
 
 
-int builtin_echo(char **args);
+// int builtin_echo(char **args);
+char *expand_variables(char *arg, t_env *env);
+int builtin_echo(char **args, t_env *env);
 int builtin_cd(char **args, t_env *env);
 int builtin_pwd(void);
 int builtin_exit(char **args);

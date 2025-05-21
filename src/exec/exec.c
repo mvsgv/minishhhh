@@ -3,45 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: augeerae <augeerae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:21:21 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/15 12:40:49 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/21 13:11:36 by augeerae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/executor.h"
-
-
-// === EXECUTION FUNCTIONS ===
 
 int is_builtin(t_command *cmd)
 {
     if (cmd->args && cmd->args[0])
     {
         if (ft_strcmp(cmd->args[0], "cd") == 0)
-            return 1;
+            return (1);
         else if (ft_strcmp(cmd->args[0], "exit") == 0)
-            return 1;
+            return (1);
         else if (ft_strcmp(cmd->args[0], "pwd") == 0)
-            return 1;
+            return (1);
         else if (ft_strcmp(cmd->args[0], "echo") == 0)
-            return 1;
+            return (1);
         else if (ft_strcmp(cmd->args[0], "env") == 0)
-            return 1;
+            return (1);
         else if (ft_strcmp(cmd->args[0], "export") == 0)
-            return 1;
+            return (1);
         else if (ft_strcmp(cmd->args[0], "unset") == 0)
-            return 1;
+            return (1);
     }
-    return 0;
+    return (0);
 }
 
 int execute_builtin(t_command *cmd, t_env *env)
 {
-    int status = 0;
+    int status;
     
-    // Handle built-in commands
+    status = 0;
     if (ft_strcmp(cmd->args[0], "cd") == 0)
         status = builtin_cd(cmd->args, env);
     else if (ft_strcmp(cmd->args[0], "exit") == 0)
@@ -49,78 +46,67 @@ int execute_builtin(t_command *cmd, t_env *env)
     else if (ft_strcmp(cmd->args[0], "pwd") == 0)
         status = builtin_pwd();
     else if (ft_strcmp(cmd->args[0], "echo") == 0)
-        status = builtin_echo(cmd->args);
+        status = builtin_echo(cmd->args, env);
     else if (ft_strcmp(cmd->args[0], "env") == 0)
         status = builtin_env(env);
     else if (ft_strcmp(cmd->args[0], "export") == 0)
         status = builtin_export(cmd->args, env);
     else if (ft_strcmp(cmd->args[0], "unset") == 0)
         status = builtin_unset(cmd->args, env);
-    // Update exit status
     env->exit_status = status;
-    
-    return status;
+    return (status);
 }
 
 void execute_command(t_command *cmd, t_env *env)
 {
     pid_t pid;
-    int status = 0;
-    int stdin_backup = -1;
-    int stdout_backup = -1;
-    
+    int status;
+    int stdin_backup;
+    int stdout_backup;
+
+    status = 0;
+    stdin_backup = -1;
+    stdout_backup = -1;
     if (!cmd || !cmd->args || !cmd->args[0])
-        return;
-    // If command is a built-in and there are no pipes
+        return ;
     if (is_builtin(cmd) && (!cmd->next))
     {
-        // Backup standard I/O for redirection
         stdin_backup = dup(STDIN_FILENO);
         stdout_backup = dup(STDOUT_FILENO);
-        
-        // Handle redirections
         status = handle_infile(cmd);
         if (status == 0)
             status = handle_outfile(cmd);
-        
-        // Execute built-in if redirection was successful
         if (status == 0)
             status = execute_builtin(cmd, env);
-        
-        // Restore standard I/O
-        if (stdin_backup >= 0) {
+        if (stdin_backup >= 0) 
+        {
             dup2(stdin_backup, STDIN_FILENO);
             close(stdin_backup);
         }
-        if (stdout_backup >= 0) {
+        if (stdout_backup >= 0) 
+        {
             dup2(stdout_backup, STDOUT_FILENO);
             close(stdout_backup);
         }
-        // Update exit status
         env->exit_status = status;
     }
     else
     {
-        // External command or built-in in a pipeline
         pid = fork();
         if (pid == 0)
         {
-            // Child process
             status = handle_infile(cmd);
             if (status == 0)
-                status = handle_outfile(cmd);
-            
+                status = handle_outfile(cmd);   
             if (status == 0)
             {
                 if (is_builtin(cmd))
                 {
-                    // Execute built-in in child process (in a pipeline)
                     status = execute_builtin(cmd, env);
                     exit(status);
                 }
                 else
                 {
-                    // Execute external command
                     execvp(cmd->args[0], cmd->args);
                     ft_putstr_fd(cmd->args[0], STDERR_FILENO);
                     ft_putstr_fd(": command not found\n", STDERR_FILENO);
@@ -131,7 +117,6 @@ void execute_command(t_command *cmd, t_env *env)
         }
         else if (pid > 0)
         {
-            // Parent process waits for child
             waitpid(pid, &status, 0);
             if (WIFEXITED(status))
                 env->exit_status = WEXITSTATUS(status);
@@ -146,14 +131,14 @@ void execute_command(t_command *cmd, t_env *env)
     }
 }
 
-// === REDIRECTIONS ===
+
 
 int handle_infile(t_command *cmd)
 {
     int fd;
     int status = 0;
 
-    // Si un fichier d'entrée est spécifié
+    status = 0;
     if (cmd->infile)
     {
         fd = open(cmd->infile, O_RDONLY);
@@ -164,7 +149,7 @@ int handle_infile(t_command *cmd)
         }
         else
         {
-            dup2(fd, STDIN_FILENO);  // Redirection de l'entrée
+            dup2(fd, STDIN_FILENO);
             close(fd);
         }
     }
@@ -175,9 +160,9 @@ int handle_outfile(t_command *cmd)
 {
     int fd;
     int flags;
-    int status = 0;
+    int status;
 
-    // Si un fichier de sortie est spécifié
+    status = 0;
     if (cmd->outfile)
     {
         flags = O_WRONLY | O_CREAT;
@@ -194,10 +179,8 @@ int handle_outfile(t_command *cmd)
             close(fd);
         }
     }
-    return status;
+    return (status);
 }
-
-// === PIPELINE EXECUTION ===
 
 void execute_pipeline(t_command *cmds, t_env *env)
 {
@@ -207,78 +190,75 @@ void execute_pipeline(t_command *cmds, t_env *env)
     pid_t *pids = NULL;
     int i, status;
     
-    // Count commands in the pipeline
-    while (current) {
+    
+    while (current) 
+    {
         num_cmds++;
         current = current->next;
     }
-    // If only one command, execute it directly
-    if (num_cmds == 1) {
+    if (num_cmds == 1) 
+    {
         execute_command(cmds, env);
-        return;
+        return ;
     }
-    // Create pipes for the pipeline
     pipes = malloc(sizeof(int *) * (num_cmds - 1));
-    if (!pipes) {
+    if (!pipes) 
+    {
         perror("malloc");
-        return;
+        return ;
     }
-    for (i = 0; i < num_cmds - 1; i++) {
+    for (i = 0; i < num_cmds - 1; i++) 
+    {
         pipes[i] = malloc(sizeof(int) * 2);
-        if (!pipes[i]) {
+        if (!pipes[i]) 
+        {
             perror("malloc");
             goto cleanup;
         }
-        if (pipe(pipes[i]) < 0) {
+        if (pipe(pipes[i]) < 0) 
+        {
             perror("pipe");
             goto cleanup;
         }
     }
-    // Create child processes for each command
     pids = malloc(sizeof(pid_t) * num_cmds);
-    if (!pids) {
+    if (!pids) 
+    {
         perror("malloc");
         goto cleanup;
     }
     current = cmds;
-    for (i = 0; i < num_cmds; i++) {
+    for (i = 0; i < num_cmds; i++) 
+    {
         pids[i] = fork();
-        
-        if (pids[i] < 0) {
+        if (pids[i] < 0) 
+        {
             perror("fork");
             goto cleanup;
         }
-        else if (pids[i] == 0) {
-            // Child process setup
+        else if (pids[i] == 0) 
+        {
             
-            // Setup stdin from previous pipe if not first command
-            if (i > 0) {
+            if (i > 0)
                 dup2(pipes[i - 1][0], STDIN_FILENO);
-            }
-            
-            // Setup stdout to next pipe if not last command
-            if (i < num_cmds - 1) {
+            if (i < num_cmds - 1) 
                 dup2(pipes[i][1], STDOUT_FILENO);
-            }
-
-            // Close all pipe fds in the child
-            for (int j = 0; j < num_cmds - 1; j++) {
+            for (int j = 0; j < num_cmds - 1; j++) 
+            {
                 close(pipes[j][0]);
                 close(pipes[j][1]);
             }
-            
-            // Handle redirections
             status = handle_infile(current);
             if (status == 0)
                 status = handle_outfile(current);
-            
-            if (status == 0) {
-                if (is_builtin(current)) {
-                    // Execute built-in
+            if (status == 0) 
+            {
+                if (is_builtin(current)) 
+                {
                     status = execute_builtin(current, env);
                     exit(status);
-                } else {
-                    // Execute external command
+                } else 
+                {
                     execvp(current->args[0], current->args);
                     ft_putstr_fd(current->args[0], STDERR_FILENO);
                     ft_putstr_fd(": command not found\n", STDERR_FILENO);
@@ -287,34 +267,29 @@ void execute_pipeline(t_command *cmds, t_env *env)
             }
             exit(1);
         }
-        
         current = current->next;
     }
-    
-    // Close all pipe fds in the parent
-    for (i = 0; i < num_cmds - 1; i++) {
+    for (i = 0; i < num_cmds - 1; i++) 
+    {
         close(pipes[i][0]);
         close(pipes[i][1]);
     }
-    
-    // Wait for all child processes
-    for (i = 0; i < num_cmds; i++) {
+    for (i = 0; i < num_cmds; i++) 
+    {
         waitpid(pids[i], &status, 0);
-        if (i == num_cmds - 1) {
-            // Update exit status from the last command
+        if (i == num_cmds - 1) 
+        { 
             if (WIFEXITED(status))
                 env->exit_status = WEXITSTATUS(status);
             else if (WIFSIGNALED(status))
                 env->exit_status = 128 + WTERMSIG(status);
         }
     }
-    
 cleanup:
-    // Free memory
-    if (pipes) {
-        for (i = 0; i < num_cmds - 1 && pipes[i]; i++) {
+    if (pipes) 
+    {
+        for (i = 0; i < num_cmds - 1 && pipes[i]; i++)
             free(pipes[i]);
-        }
         free(pipes);
     }
     if (pids)
@@ -325,12 +300,8 @@ void execute_all_commands(t_command *cmds, t_env *env)
 {
     if (!cmds)
         return;
-    
-    // Execute commands as a pipeline
     execute_pipeline(cmds, env);
 }
-
-// === SIGNAL HANDLING ===
 
 void sigint_handler(int sig)
 {
@@ -343,10 +314,7 @@ void sigint_handler(int sig)
 
 void setup_signals(void)
 {
-    // Set up SIGINT handler (Ctrl+C)
     signal(SIGINT, sigint_handler);
-    
-    // Ignore SIGQUIT (Ctrl+\)
     signal(SIGQUIT, SIG_IGN);
 }
 
