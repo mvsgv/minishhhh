@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 16:45:45 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/14 14:31:59 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/21 20:00:14 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@
     si ce n est pas un operateur connu on le considere comme WORD*/
 t_token_type get_token_type(const char *s)
 {
+    if (ft_strncmp(s, ">>", 2) == 0)
+        return APPEND;
+    if (ft_strncmp(s, "<<", 2) == 0)
+    return HEREDOC;
     if (ft_strncmp(s, "|", 1) == 0)
         return PIPE;
     if (ft_strncmp(s, "<", 1) == 0)
         return RED_IN;
     if (ft_strncmp(s, ">", 1) == 0)
         return RED_OUT;
-    if (ft_strncmp(s, "<<", 1) == 0)
-        return HEREDOC;
-    if (ft_strncmp(s, ">>", 1) == 0)
-        return APPEND;
     return WORD;
 }
 

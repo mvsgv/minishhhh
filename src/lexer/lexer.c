@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:17:17 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/15 12:48:17 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/21 20:04:03 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,17 @@ static char *find_quotes(const char *line, int *i)
 {
     char quote;
     int start;
+    char    *res;
 
-    start = *i;
-    quote = line[*i];
+    quote = line[*i];//storing th quote character in quote
+    (*i)++;
+    start = *i;//start point to the first character after the quote
     while (line[*i] && line[*i] != quote)
         (*i)++;
+    res = ft_substr(line, start, *i - start);        
     if (line[*i] == quote)
         (*i)++; // skip to the closing quote
-    return (ft_substr(line, start, *i - start));
+    return (res);
 }
 
 static void handle_quote(const char *line, int *i, t_token **list)

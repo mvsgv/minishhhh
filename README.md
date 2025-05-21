@@ -323,7 +323,7 @@ PROBLEMES PARSING :
 actuel :
 echo "hello" ---> " hello"
 comportement attendu :
-echo "hello"  ---> hello 
+echo "hello"  ---> hello            DONE
 
 
 DEBUG 
@@ -341,7 +341,7 @@ args[2] = [hello"]
 " hello"
 minishell> 
 
-MEME PROBLEME POUE ADD UNE VAR :
+MEME PROBLEME POUE ADD UNE VAR :  DONE
 
 actuel :
 export VAR="hello"  ---- >    VAR="hello"
@@ -368,7 +368,7 @@ comportement attendu :
 echo "a'$USER'"  ---> a'augeerae'
 
 
-2. HANDER 
+2. HANDER                       DONE
 >> 
 
 comportement actuel :
@@ -400,7 +400,53 @@ si on ne ferme pas les doubles quotes alors bash reste "ouvert" et attend qu on 
 
 
 
+Gerer expander dans le parsing et non dans echo
 
+actuel:
+1 - minishell> echo '$USER'
+mavissar
+2 - minishell> echo "'$USER'"
+$USER
+3 - minishell> echo '"$USER"'
+"mavissar"
+
+L expandeur fais l inverse de ce qu il faut ? 
+au lieu de gerer la premiere et la derniere quote il faut gerer la 
+premiere et la deuxieme, cad celle qui vient direct apres
+dans le cas :
+mavissar@mi-r1-p2:~$ echo "'"'$USER'"'"
+'$USER'
+on gere "'" puis '$USER' puis "'"
+
+correct:
+1 - mavissar@mi-r1-p2:~$ echo '$USER'
+$USER
+2 - mavissar@mi-r1-p2:~$ echo "'$USER'"
+'mavissar'
+3 - mavissar@mi-r1-p2:~$ echo '"$USER"'
+"$USER"
+
+
+
+
+beug d espaces :
+minishell> echo """f"""
+ f 
+minishell> echo "'""f""'"
+' f '
+minishell> echo "'""f""'"
+minishell> echo "'""f""'"
+' f '
+minishell> echo "'""""'"
+'  '
+minishell> echo ""
+
+minishell> echo '""'
+""
+minishell> echo "''''" | cat -e
+''$
+minishell> echo "'""'" | cat -e
+' '$
 
 
 
