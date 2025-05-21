@@ -308,3 +308,113 @@ Les fonctions autorisée :
 - **`tgoto(cap, col, row)`** : Construit une chaîne de positionnement de curseur basée sur la capacité `cap`.
 
 - **`tput(str)`** : Écrit la chaîne de contrôle `str` sur la sortie standard.
+
+
+
+
+
+
+
+
+PROBLEMES PARSING : 
+
+1. DOUBLE QUOTES
+
+actuel :
+echo "hello" ---> " hello"
+comportement attendu :
+echo "hello"  ---> hello 
+
+
+DEBUG 
+minishell> echo
+args[0] = [echo]
+
+minishell> echo hello
+args[0] = [echo]
+args[1] = [hello]
+hello
+minishell> echo "hello"
+args[0] = [echo]
+args[1] = ["]            !!! probleme 
+args[2] = [hello"]
+" hello"
+minishell> 
+
+MEME PROBLEME POUE ADD UNE VAR :
+
+actuel :
+export VAR="hello"  ---- >    VAR="hello"
+comportement attendu 
+export VAR="hello" ----> VAR=hello
+
+MEME PROBLEME POUR echo VAR:
+
+actuel :
+echo "$USER"  -----> " augeerae"
+comportement attendu :
+echo "$USER" ----> augeerae
+
+--MEME CHOSE POUR LES ' '
+
+actuel :
+echo 'hello world' --- > ' hello world'
+comportement attendu :
+echo 'hello world' ---- > hello world
+
+actuel :
+echo "a'$USER'" --- > " a'augeerae'"
+comportement attendu : 
+echo "a'$USER'"  ---> a'augeerae'
+
+
+2. HANDER 
+>> 
+
+comportement actuel :
+echo more >> out.txt
+echo more2 >> out.txt
+echo more3 >> out.txt
+==== fichier out.txt = more puis out.txt = more2 puis out.txt = more3
+ecrase a la place d add les uns a la suites des autres dans le fichier 
+
+comportement attendu :
+echo more >> out.txt
+echo more2 >> out.txt
+echo more3 >> out.txt
+==== fichier out.txt = more puis out.txt = more more 2 puis out.txt = more more2 more3 
+ ajoute le prochaine dans out.txt sans ecraser 
+
+
+
+
+
+EVENTUELS PROBLEMES :
+
+exit avec des lettres pour argument (exit abc → affiche une erreur, quitte avec 255), le notre n accepte pas autre chose que les chiffres pour argument
+
+
+si on ne ferme pas les doubles quotes alors bash reste "ouvert" et attend qu on ecrit la suite, le notre afficher une erreur de syntax
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
