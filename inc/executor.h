@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: augeerae <augeerae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:19:47 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/15 11:19:48 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:53:32 by augeerae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void execute_all_commands(t_command *cmds, t_env *env);
 void execute_pipeline(t_command *cmds, t_env *env);
 void sigint_handler(int sig);
 void setup_signals(void);
-
-
+void child_process(t_command *cmd, int **pipes, int i, t_env *env);
+void wait_and_cleanup(int **pipes, pid_t *pids, int n, t_env *env);
+int setup_pipes_and_fork(t_command *cmds, t_env *env, int **pipes, pid_t *pids);
 
 #endif
