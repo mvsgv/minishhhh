@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 16:45:45 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/21 20:00:14 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/26 20:00:22 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,32 @@ void free_tok(t_token *list)
         free(list);
         list = next;
     }
+}
+/*
+envp[0] = "PATH=/usr/bin:/bin"
+envp[1] = "USER=mavissar"
+envp[2] = "HOME=/Users/mavissar"
+So each entry is a string of the form "KEY=VALUE"
+If env->envp[i] = "USER=mavissar":
+
+    ft_strncmp("USER=mavissar", "USER", 4) → ✅ matches
+
+    env->envp[i][4] == '=' → ✅
+
+    We return env->envp[i] + 5 → "mavissar"
+*/
+char    *get_env_value(char *name, t_env *env)
+{
+    int     i;
+    size_t  len;
+    
+    i = 0;
+    len = ft_strlen(name);
+    while(env->envp[i])
+    {
+        if (ft_strncmp(env->envp[i], name, len) == 0 && env->envp[i][len] == '=')
+            return (env->envp[i] + len + 1);
+        i++;
+    }
+    return "";
 }

@@ -6,11 +6,12 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:34:35 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/15 12:57:52 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/26 20:31:54 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/Minishell.h"
+#include "../../inc/lexer.h"
 
 /*Quelle est la différence entre volatile et constant en C  ?
 Const spécifie que le pointeur ne peut pas être modifié après son initialisation;
@@ -69,6 +70,8 @@ int main(int argc, char **argv, char **envp)
             continue;
         }
         tkn = lexer(line);
+        expand_word(line, env, 0);
+            printf()
         cmd = parser(tkn);
         if (cmd)
             execute_all_commands(cmd, env);

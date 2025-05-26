@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:20:43 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/21 20:04:56 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/26 20:29:02 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #define LEXER_H
 
 #include "Minishell.h"
+
+typedef struct s_env t_env;
 
 typedef enum e_token_type
 {
@@ -37,5 +39,8 @@ t_token_type    get_token_type(const char *s);
 t_token         *create_token(char *value , t_token_type type);
 void            add_token(t_token **list, char *value, t_token_type type);
 void            free_tok(t_token *list);
+char            *expand_word(const char *str, t_env *env, int exit_cd);
+char            *get_env_value(char *name, t_env *env);
+
 
 #endif

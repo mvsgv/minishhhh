@@ -1,0 +1,129 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/25 15:54:49 by mavissar          #+#    #+#             */
+/*   Updated: 2025/05/26 20:28:50 by mavissar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../inc/lexer.h"
+
+/*Handles the case $?
+Converts the int into a string, joins it, frees the old strings
+Before:
+exit_code = 127
+result    = "Command failed with code: "
+After:
+val = ft_itoa(exit_code); --> converts 127 to "127" --> val = "127"
+tmp = ft_strjoin(result, val);
+Concatenates "Command failed with code: " + "127"
+tmp = "Command failed with code: 127"
+*/
+static char    *exit_code_expand(int *i, int exit_cd, char *res)
+{
+    char    *val;
+    char    *tmp;
+    
+    (*i)++;//on avance du ? au prochain element
+    val = ft_itoa(exit_cd);
+    tmp = ft_strjoin(res, val);
+    free(val);
+    free(res);
+    return (tmp);
+}
+/*
+str → the input line (e.g. "echo $USER")
+i → pointer to the current index in the string
+env → your environment list (t_env)
+res → the result string built so far (e.g., "echo ")
+Let’s say:
+
+    str = "echo $USER"
+
+    *i = 5 (points to the U after $)
+
+    env contains USER=mavissar
+
+    res = "echo " (space included)
+*/
+static char    *env_var_expansion(const char *str, int *i, t_env *env, char *res)
+{
+    char    *key;
+    char    *val;
+    char    *tmp;
+    int     start;
+
+    start = *i;
+    while((str[*i] && ft_isalnum(str[*i])) || (str[*i] == '_'))
+        (*i)++;
+    key = ft_substr(str, start, *i - start);
+    /*key = ft_substr("echo $USER", 5, 4); // key = "USER"*/
+    val = ft_strdup(get_env_value(key, env));
+    /*je duplique la valeur de key dans ma val, sachant que 
+    sa valeur est mavissar, merci a ma fonction get env val*/
+    tmp = ft_strjoin(res,  val);
+    /*je join et je renvoi echo mavissar*/
+    free(key);
+    free(val);
+    free(res);
+    return (tmp);    
+}
+
+/*Its job is to add one character (the current str[i]) to a growing result string res.
+char tmp[2] = {str[i], 0};
+str[i] = 'c'     →    tmp = ['c', '\0']     →    tmp = "c"
+comme je itere i dans ma fonction principale, mon caractere change et le prochain
+se rajoute
+Is used when there’s no special $ expansion needed
+Is memory-safe (free(res))
+Ensures quote handling or $ logic doesn’t interfere
+*/
+static char    *append_char_to_res(char *res, char c)
+{
+    char    tmp[2];
+    char    *join;
+    
+    tmp[0] = c;
+    tmp[1] = '\0';
+    join = ft_strjoin(res, tmp);
+    free(res);
+    return (join);
+}
+
+static void    dq_sq(char c, int *in_sq, int *in_dq)
+{
+    if (c == '\'' && !(*in_dq))
+        *in_sq = !(*in_sq);
+    else if (c == '\"' && !(*in_sq))
+        *in_dq = !(*in_dq);
+}
+
+char    *expand_word(const char *str, t_env *env, int exit_cd)
+{
+    int i;
+    int in_sq;
+    int in_dq;
+    char    *res;
+
+    i = 0;
+    while(str[i])
+    {
+        dq_sq(str[i], &in_sq, &in_dq);
+        if (str[i] == '$' && !in_sq)
+        {
+            i++;
+            if (str[i] == '?')
+                res = exit_code_expand(&i, exit_cd, res);
+            else
+                res = env_var_expansion(str, &i, env, res);
+        }
+        else
+            res = append_char_to_res(res, str[i]);
+        i++;
+    }
+    return (res);
+}

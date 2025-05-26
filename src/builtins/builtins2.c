@@ -1,107 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:08:27 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/21 16:08:51 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/25 16:42:53 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/builtins.h"
 
-char *expand_variables(char *arg, t_env *env)
-{
-	char	*result = calloc(1, sizeof(char));
-	size_t	i = 0, j;
-	if (!result)
-		return (NULL);
-
-	while (arg[i])
-	{
-		if (arg[i] == '$' && arg[i + 1] &&
-			(ft_isalpha(arg[i + 1]) || arg[i + 1] == '_'))
-		{
-			i++;
-			j = i;
-			while (arg[j] && (ft_isalnum(arg[j]) || arg[j] == '_'))
-				j++;
-			char *var_name = strndup(arg + i, j - i);
-			char *var_value = env_get(env, var_name);
-			if (!var_value)
-				var_value = ""; // variable non définie → chaîne vide
-
-			// concatène result + var_value
-			char *tmp = malloc(strlen(result) + strlen(var_value) + 1);
-			if (!tmp)
-				return (free(var_name), free(result), NULL);
-			tmp[0] = '\0';
-			strcat(tmp, result);
-			strcat(tmp, var_value);
-			free(result);
-			result = tmp;
-			free(var_name);
-			i = j;
-		}
-		else
-		{
-			char buf[2] = { arg[i], '\0' };
-			char *tmp = malloc(strlen(result) + 2);
-			if (!tmp)
-				return (free(result), NULL);
-			tmp[0] = '\0';
-			strcat(tmp, result);
-			strcat(tmp, buf);
-			free(result);
-			result = tmp;
-			i++;
-		}
-	}
-	return (result);
-}
-// int builtin_echo(char **args, t_env *env)
-// {
-// 	int	i = 1;
-// 	int	n_option = 0;
-
-// 	if (args[1] && args[1][0] == '-' && args[1][1] == 'n')
-// 	{
-// 		int	j = 2;
-// 		while (args[1][j] == 'n')
-// 			j++;
-// 		if (args[1][j] == '\0')
-// 		{
-// 			n_option = 1;
-// 			i = 2;
-// 		}
-// 	}
-
-// 	while (args[i])
-// 	{
-// 		char *expanded = expand_variables(args[i], env);
-// 		if (expanded)
-// 		{
-// 			ft_putstr_fd(expanded, STDOUT_FILENO);
-// 			free(expanded);
-// 		}
-// 		if (args[i + 1])
-// 			ft_putchar_fd(' ', STDOUT_FILENO);
-// 		i++;
-// 	}
-// 	if (!n_option)
-// 		ft_putchar_fd('\n', STDOUT_FILENO);
-// 	return (0);
-// }
-
-
-
-
-
-
 int builtin_echo(char **args, t_env *env)
 {
+    (void)env;
     int i = 1;
     int n_option = 0;
 
@@ -130,7 +43,7 @@ int builtin_echo(char **args, t_env *env)
         }
         else
         {
-            to_print = expand_variables(args[i], env);
+            to_print = strndup(args[i] + 1, len);
         }
 
         if (to_print)

@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavissar <mavissar@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/15 16:00:27 by mavissar          #+#    #+#             */
-/*   Updated: 2024/04/16 14:38:15 by mavissar         ###   ########.fr       */
+/*   Created: 2024/04/09 14:35:12 by mavissar          #+#    #+#             */
+/*   Updated: 2025/05/26 20:03:10 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/Minishell.h"
 
-void	*ft_calloc(size_t count, size_t size)
+void	ft_bzero(void *s, size_t n)
 {
-	unsigned char	*tmp;
+	size_t			i;
+	unsigned char	*p;
 
-	tmp = malloc(count * size);
-	if (!tmp)
-		return (NULL);
-	ft_bzero(tmp, count * size);
-	return (tmp);
+	i = 0;
+	p = s;
+	while (i < n)
+	{
+		p[i] = 0;
+		i++;
+	}
 }
+/*int	main()
+{
+	char	s[] = "hello world";
+	ft_bzero(s, 5);
+	printf("%s\n", s);
+}*/

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavissar <mavissar@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:33:40 by mavissar          #+#    #+#             */
-/*   Updated: 2024/05/04 17:01:18 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/26 19:56:30 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/Minishell.h"
 
 static int	get_quantity(int n)
 {

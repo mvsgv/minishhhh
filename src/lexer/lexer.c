@@ -6,9 +6,39 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:17:17 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/21 20:04:03 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/26 20:10:23 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*Systeme de tri : Tokenization/Lexer
+Transforme une entree d'utilisateur et les structures en tokens
+ex: echo "hello" | grep hello > file.txt
+valeur : echo , type = WORD 
+valeur : | , type = PIPE
+vaeur : > | type = RED_OUT
+Il est important de faire la partie lexer avant la partie parser car le parser
+attend une liste de tokens et non une string
+Le parser lui construit une structure de commande (liste chainee de commandes)
+et assigne les redirection, arguments, etc. Mais pour y arriver il aura besoin
+de connaitre au minimum le nom des commandes, ce qu'est une argument ainsi 
+qu'un operateur. Si je n'ai pas de lexer, mon parser n'aura pas de syntax.
+
+
+INPUT : echo "$HOME"
+Lexer turns input into tokens ($USER becomes one token)
+    lexer creates { value: "$HOME", type: WORD }
+Expander replaces values inside tokens
+    expander turns into { value: "/home/mavissar", type: WORD }
+Parser builds the command tree using final values
+    parser sees command: echo
+                args: ["/home/mavissar"]
+                
+If you expand before lexing, you'd break quotes/syntax.
+If you expand after parsing, it's too late (parser might make wrong structure).
+
+Lexer	    Breaks raw input into tokens (echo, >, etc.)
+Expander	Replaces $VAR, $?, inside tokens
+Parser  	Builds the command list (structure, pipes)*/
 
 #include "../../inc/lexer.h"
 

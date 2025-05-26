@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:27:20 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/14 14:41:36 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/26 20:29:41 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,9 @@ void	ft_putchar_fd(char c, int fd);
 int	ft_strcmp(const char *s1, const char *s2);
 int	ft_isdigit(int c);
 int	ft_atoi(const char *str);
+char	*ft_itoa(int n);
+void	*ft_calloc(size_t count, size_t size);
+void	ft_bzero(void *s, size_t n);
+char	*ft_strjoin(char const *s1, char const *s2);
 
 #endif
