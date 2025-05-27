@@ -84,7 +84,8 @@ static void execute_child_process(t_command *cmd, t_env *env)
         status = execute_builtin(cmd, env);
         exit(status);
     }
-    execvp(cmd->args[0], cmd->args);
+    // execvp(cmd->args[0], cmd->args);
+    execve(cmd->args[0], cmd->args, env->envp);
     ft_putstr_fd(cmd->args[0], STDERR_FILENO);
     ft_putstr_fd(": command not found\n", STDERR_FILENO);
     exit(127);

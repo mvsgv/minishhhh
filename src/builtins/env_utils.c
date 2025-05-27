@@ -17,7 +17,6 @@ char *env_get(t_env *env, const char *name)
     return (NULL);
 }
 
-
 t_env *env_init(char **envp)
 {
     t_env *env;
@@ -38,8 +37,6 @@ t_env *env_init(char **envp)
         env->home = ft_strdup(env->home);
     return (env);
 }
-
-
 
 void env_free(t_env *env)
 {
@@ -67,4 +64,34 @@ bool is_valid_identifier(const char *str)
         i++;
     }
     return (true);
+}
+
+void increment_shlvl(t_env *env)
+{
+    char *value;
+    int shlvl;
+    char *new_value;
+    char *shlvl_var;
+    
+
+    value = env_get(env, "SHLVL");
+    shlvl = 0;
+    if (value)
+    {
+        shlvl = ft_atoi(value);
+        if (shlvl < 0)
+            shlvl = 0;
+    }
+    shlvl++;
+    if (shlvl > 1000)
+        shlvl = 1;
+    new_value = ft_itoa(shlvl);
+    if (!new_value)
+        return ;
+    shlvl_var = ft_strjoin("SHLVL=", new_value);
+    free(new_value);
+    if (!shlvl_var)
+        return ;
+    env_set(env, shlvl_var);
+    free(shlvl_var);
 }

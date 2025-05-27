@@ -14,7 +14,7 @@ LDFLAGS         =       $(READLINE_LIB)
 
 VPATH           =       src src/builtins src/exec src/lexer src/parser src/utils
 
-SRC_BUILTINS    =       builtins/builtins1.c builtins/arr_utils.c builtins/builtins2.c builtins/env_utils.c builtins/env.c builtins/shlvl.c
+SRC_BUILTINS    =       builtins/builtins1.c builtins/arr_utils.c builtins/builtins2.c builtins/env_utils.c builtins/env.c 
 MAIN            =       main/main.c
 SRC_EXEC        =       exec/exec.c exec/pipe.c exec/utils.c
 SRC_LEXER       =       lexer/lexer.c lexer/lexer_utils.c
