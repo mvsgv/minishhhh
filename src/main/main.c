@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: augeerae <augeerae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:34:35 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/26 20:31:54 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/27 10:06:29 by augeerae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@ int main(int argc, char **argv, char **envp)
             continue;
         }
         tkn = lexer(line);
-        expand_word(line, env, 0);
-            printf()
+        // expand_word(line, env, 0);
         cmd = parser(tkn);
         if (cmd)
             execute_all_commands(cmd, env);

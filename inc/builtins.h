@@ -12,9 +12,8 @@ typedef struct s_env
 } t_env;
 
 
-// int builtin_echo(char **args);
-char *expand_variables(char *arg, t_env *env);
-int builtin_echo(char **args, t_env *env);
+
+int builtin_echo(char **args);
 int builtin_cd(char **args, t_env *env);
 int builtin_pwd(void);
 int builtin_exit(char **args);
@@ -30,5 +29,7 @@ char **ft_arrdup(char **arr);
 void ft_free_arr(char **arr);
 void ft_sort_strarr(char **arr);
 bool is_valid_identifier(const char *str);
+void increment_shlvl(t_env *env);
+
 
 #endif
