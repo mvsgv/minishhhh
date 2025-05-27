@@ -15,7 +15,8 @@ typedef struct s_env
 
 int builtin_echo(char **args);
 int builtin_cd(char **args, t_env *env);
-int builtin_pwd(void);
+// int builtin_pwd(void);
+int builtin_pwd(t_env *env);
 int builtin_exit(char **args);
 int builtin_export(char **args, t_env *env);
 int builtin_unset(char **args, t_env *env);

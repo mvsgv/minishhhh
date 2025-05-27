@@ -1,5 +1,8 @@
 #include "../../inc/builtins.h"
 
+
+// SET
+
 static int env_set_existing(t_env *env, char *var, char *name, char *equal_sign)
 {
     int i;
@@ -50,124 +53,59 @@ static int env_add_new(t_env *env, char *var, char *name, char *equal_sign)
     return (1);
 }
 
-// void env_set(t_env *env, char *var)
-// {
-//     char *name;
-//     char *equal_sign;
+static void update_home_if_needed(t_env *env, char *name, char *value)
+{
+    if (ft_strcmp(name, "HOME") == 0)
+    {
+        free(env->home);
+        env->home = ft_strdup(value);
+    }
+}
 
-//     equal_sign = ft_strchr(var, '=');
-//     name = equal_sign ? ft_substr(var, 0, equal_sign - var) : ft_strdup(var);
-//     if (!name)
-//         return ;
-//     if (env_set_existing(env, var, name, equal_sign))
-//     {
-//         free(name);
-//         return ;
-//     }
-//     if (equal_sign || !env_get(env, name))
-//         env_add_new(env, var, name, equal_sign);
-//     if (equal_sign && ft_strcmp(name, "HOME") == 0)
-//     {
-//         free(env->home);
-//         env->home = ft_strdup(equal_sign + 1);
-//     }
-//     free(name);
-// }
+static void set_var_with_value(t_env *env, char *var, char *name, char *equal_sign)
+{
+    if (env_set_existing(env, var, name, equal_sign))
+    {
+        update_home_if_needed(env, name, equal_sign + 1);
+        return;
+    }
+    env_add_new(env, var, name, equal_sign);
+    update_home_if_needed(env, name, equal_sign + 1);
+}
 
+static void set_var_without_value(t_env *env, char *name)
+{
+    char *new_var;
+
+    if (!env_get(env, name))
+    {
+        new_var = ft_strjoin(name, "=");
+        if (new_var)
+        {
+            env_add_new(env, new_var, name, NULL);
+            free(new_var);
+        }
+    }
+}
 
 void env_set(t_env *env, char *var)
 {
     char *name;
     char *equal_sign;
-    
+
     equal_sign = ft_strchr(var, '=');
-    
-    // Extraire le nom de la variable
     if (equal_sign)
         name = ft_substr(var, 0, equal_sign - var);
     else
         name = ft_strdup(var);
-        
     if (!name)
         return;
-    
-    // Si on a une valeur (avec =)
+
     if (equal_sign)
-    {
-        // Toujours essayer de mettre à jour une variable existante
-        if (env_set_existing(env, var, name, equal_sign))
-        {
-            // Mise à jour spéciale pour HOME après modification
-            if (ft_strcmp(name, "HOME") == 0)
-            {
-                free(env->home);
-                env->home = ft_strdup(equal_sign + 1);
-            }
-            free(name);
-            return;
-        }
-        // Si pas trouvée, l'ajouter
-        env_add_new(env, var, name, equal_sign);
-        
-        // Mise à jour spéciale pour HOME après ajout
-        if (ft_strcmp(name, "HOME") == 0)
-        {
-            free(env->home);
-            env->home = ft_strdup(equal_sign + 1);
-        }
-    }
+        set_var_with_value(env, var, name, equal_sign);
     else
-    {
-        // Sans valeur, ne créer que si la variable n'existe pas déjà
-        if (!env_get(env, name))
-            env_add_new(env, var, name, equal_sign);
-    }
-    
+        set_var_without_value(env, name);
+
     free(name);
 }
 
-static int find_env_index(char **envp, const char *name)
-{
-    size_t i;
-    size_t name_len;
-    size_t current_len;
-    char *equal_sign;
-
-    name_len = ft_strlen(name);
-    i = 0;
-    while (envp[i])
-    {
-        equal_sign = ft_strchr(envp[i], '=');
-        if (equal_sign)
-            current_len = (size_t)(equal_sign - envp[i]);
-        else
-            current_len = ft_strlen(envp[i]);
-
-        if (ft_strncmp(envp[i], name, name_len) == 0 && current_len == name_len)
-            return ((int)i);
-        i++;
-    }
-    return (-1);
-}
-
-
-void env_unset(t_env *env, const char *name)
-{
-    int i;
-
-    i = find_env_index(env->envp, name);
-    if (i < 0)
-        return ;
-    free(env->envp[i]);
-    while (env->envp[i + 1])
-    {
-        env->envp[i] = env->envp[i + 1];
-        i++;
-    }
-    env->envp[i] = NULL;
-    if (ft_strcmp(name, "HOME") == 0)
-    {
-        free(env->home);
-        env->home = NULL;
-    }
-}

@@ -22,7 +22,7 @@ void child_process(t_command *cmd, int **pipes, int i, t_env *env)
 	if (status == 0 && is_builtin(cmd))
 		exit(execute_builtin(cmd, env));
 	else if (status == 0)
-		execvp(cmd->args[0], cmd->args);
+        execve(cmd->args[0], cmd->args, env->envp);
 	ft_putstr_fd(cmd->args[0], STDERR_FILENO);
 	ft_putstr_fd(": command not found\n", STDERR_FILENO);
 	exit(127);

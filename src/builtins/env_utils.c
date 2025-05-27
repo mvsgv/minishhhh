@@ -49,21 +49,16 @@ void env_free(t_env *env)
     free(env);
 }
 
-bool is_valid_identifier(const char *str)
+
+//SHLVL
+
+static int sanitize_shlvl(int shlvl)
 {
-    int i;
-    
-    i = 0;
-    if (!str || (!ft_isalpha(str[0]) && str[0] != '_'))
-        return (false);
-    i = 1;
-    while (str[i] && str[i] != '=') 
-    {
-        if (!ft_isalnum(str[i]) && str[i] != '_')
-            return (false);
-        i++;
-    }
-    return (true);
+    if (shlvl < 0)
+        return 0;
+    if (shlvl > 1000)
+        return 1;
+    return shlvl;
 }
 
 void increment_shlvl(t_env *env)
@@ -72,26 +67,22 @@ void increment_shlvl(t_env *env)
     int shlvl;
     char *new_value;
     char *shlvl_var;
-    
 
     value = env_get(env, "SHLVL");
-    shlvl = 0;
     if (value)
-    {
         shlvl = ft_atoi(value);
-        if (shlvl < 0)
-            shlvl = 0;
-    }
+    else
+        shlvl = 0;
+    shlvl = sanitize_shlvl(shlvl);
     shlvl++;
-    if (shlvl > 1000)
-        shlvl = 1;
     new_value = ft_itoa(shlvl);
     if (!new_value)
-        return ;
+        return;
     shlvl_var = ft_strjoin("SHLVL=", new_value);
     free(new_value);
     if (!shlvl_var)
-        return ;
+        return;
     env_set(env, shlvl_var);
     free(shlvl_var);
 }
+

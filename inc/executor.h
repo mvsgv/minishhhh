@@ -20,4 +20,8 @@ void wait_and_cleanup(int **pipes, pid_t *pids, int n, t_env *env);
 int setup_pipes_and_fork(t_command *cmds, t_env *env, int **pipes, pid_t *pids);
 int count_cmds(t_command *cmds);
 
+char *get_command_path(char *cmd, t_env *env);
+void free_split(char **tab);
+char *path_join(const char *dir, const char *file);
+
 #endif

@@ -23,32 +23,41 @@ int handle_infile(t_command *cmd)
     return status;
 }
 
+static int open_outfile(const char *filename, int append)
+{
+    int flags;
+
+    flags = O_WRONLY | O_CREAT;
+    if (append)
+        flags |= O_APPEND;
+    else
+        flags |= O_TRUNC;
+    return open(filename, flags, 0644);
+}
+
 int handle_outfile(t_command *cmd)
 {
     int fd;
-    int flags;
     int status;
 
     status = 0;
     if (cmd->outfile)
     {
-        flags = O_WRONLY | O_CREAT;
-        flags |= (cmd->append ? O_APPEND : O_TRUNC);
-        fd = open(cmd->outfile, flags, 0644);
+        fd = open_outfile(cmd->outfile, cmd->append);
         if (fd < 0)
         {
             perror(cmd->outfile);
-            status = -1;
+            return (-1);
         }
-        else
+        if (dup2(fd, STDOUT_FILENO) < 0)
         {
-            dup2(fd, STDOUT_FILENO);  // Redirection de la sortie
             close(fd);
+            return (-1);
         }
+        close(fd);
     }
     return (status);
 }
-
 
 void sigint_handler(int sig)
 {
@@ -64,6 +73,7 @@ void setup_signals(void)
     signal(SIGINT, sigint_handler);
     signal(SIGQUIT, SIG_IGN);
 }
+
 int count_cmds(t_command *cmds)
 {
 	int count = 0;
