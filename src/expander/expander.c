@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 15:54:49 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/26 20:28:50 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/27 22:01:44 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,27 +50,37 @@ Let’s say:
 
     res = "echo " (space included)
 */
-static char    *env_var_expansion(const char *str, int *i, t_env *env, char *res)
-{
-    char    *key;
-    char    *val;
-    char    *tmp;
-    int     start;
 
+static char *env_var_expansion(const char *str, int *i, t_env *env)
+{
+    char *key;
+    char *val;
+    char *tmp;
+    int start;
+
+    (*i)++;
     start = *i;
-    while((str[*i] && ft_isalnum(str[*i])) || (str[*i] == '_'))
+
+    // Extract the variable name
+    while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
         (*i)++;
-    key = ft_substr(str, start, *i - start);
-    /*key = ft_substr("echo $USER", 5, 4); // key = "USER"*/
-    val = ft_strdup(get_env_value(key, env));
-    /*je duplique la valeur de key dans ma val, sachant que 
-    sa valeur est mavissar, merci a ma fonction get env val*/
-    tmp = ft_strjoin(res,  val);
-    /*je join et je renvoi echo mavissar*/
+
+    key = ft_substr(str, start, *i - start); // Extract the variable name
+    if (!key)
+        return (NULL);
+
+    printf("Key: %s\n", key);
+
+    val = get_env_value(key, env); // Get the value of the variable
+
+    tmp = ft_strdup(val); // Duplicate the value (do not include anything before the variable)
     free(key);
-    free(val);
-    free(res);
-    return (tmp);    
+
+    if (!tmp)
+        return (NULL); // If duplication fails, return NULL
+
+    printf("Expanded variable: %s\n", tmp);
+    return (tmp);
 }
 
 /*Its job is to add one character (the current str[i]) to a growing result string res.
@@ -91,39 +101,67 @@ static char    *append_char_to_res(char *res, char c)
     tmp[1] = '\0';
     join = ft_strjoin(res, tmp);
     free(res);
-    return (join);
+    res = join;
+    return (res);
 }
 
 static void    dq_sq(char c, int *in_sq, int *in_dq)
 {
+    
     if (c == '\'' && !(*in_dq))
         *in_sq = !(*in_sq);
     else if (c == '\"' && !(*in_sq))
         *in_dq = !(*in_dq);
 }
 
-char    *expand_word(const char *str, t_env *env, int exit_cd)
+char *expand_word(const char *str, t_env *env, int exit_cd)
 {
     int i;
     int in_sq;
     int in_dq;
-    char    *res;
+    char *res;
 
     i = 0;
-    while(str[i])
+    in_dq = 0;
+    in_sq = 0;
+    res = ft_calloc(1, 1); /* equivalent to strdup("") */
+    if (!res)
+        return (NULL);
+
+    while (str[i])
     {
         dq_sq(str[i], &in_sq, &in_dq);
         if (str[i] == '$' && !in_sq)
         {
-            i++;
-            if (str[i] == '?')
+            if (str[i + 1] == '?')
+            {
                 res = exit_code_expand(&i, exit_cd, res);
+                if (!res)
+                    return (NULL);
+            }
             else
-                res = env_var_expansion(str, &i, env, res);
+            {
+                char *tmp = env_var_expansion(str, &i, env);
+                if (!tmp)
+                {
+                    free(res);
+                    return (NULL);
+                }
+                char *new_res = ft_strjoin(res, tmp); // Append expanded variable to result
+                free(res);
+                free(tmp);
+                res = new_res;
+                if (!res)
+                    return (NULL);
+            }
         }
         else
+        {
             res = append_char_to_res(res, str[i]);
-        i++;
+            if (!res)
+                return (NULL);
+            i++;
+        }
     }
     return (res);
 }

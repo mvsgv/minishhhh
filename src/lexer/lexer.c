@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:17:17 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/26 20:10:23 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/27 19:35:08 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,11 @@ static void handle_quote(const char *line, int *i, t_token **list)
     free(word);
 }
 
-t_token *lexer(const char *line)
+t_token *lexer(const char *line, t_env *env, int exit_code)
 {
     t_token *list;
     int i;
+    t_token *tmp;
 
     i = 0;
     list = NULL;
@@ -113,6 +114,17 @@ t_token *lexer(const char *line)
             handle_operator(line, &i, &list);
         else
             handle_word(line, &i, &list);
+    }
+    tmp = list;
+    while (tmp)
+    {
+        if (tmp->type == WORD)
+        {
+            char *expanded = expand_word(tmp->value, env, exit_code);
+            free(tmp->value);
+            tmp->value = expanded;
+        }
+        tmp = tmp->next;
     }
     return (list);
 }

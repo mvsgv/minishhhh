@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: augeerae <augeerae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:34:35 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/27 10:06:29 by augeerae         ###   ########.fr       */
+/*   Updated: 2025/05/27 18:28:04 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,51 +33,41 @@ static bool	empty(char *line)
     return true;
 }
 
-
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-    (void)argc;
-    (void)argv;
-    char *line;
+    char                *line;
+	t_env			    *env;
     t_token *tkn;
     t_command *cmd;
-    t_env *env;
     
-
     env = env_init(envp);
-    if (!env) 
-    {
-        fprintf(stderr, "Failed to initialize environment\n");
-        return 1;
-    }
-    setup_signals();
-    while (1)
-    {
-        // line = readline("\033[38;2;255;20;147mminishell> \033[0m");
+	while (argv && argc)
+	{
+        setup_signals();
         line = readline("\001\033[38;2;255;20;147m\002minishell> \001\033[0m\002");
         if (!line)
         {
             printf("exit\n");
             break;
         }
-        if (empty(line)) {
+        if (empty(line)) 
+        {
             free(line);
             continue;
         }
         add_history(line);
-        if (!input_checker(line)) {
+        if (!input_checker(line)) 
+        {
             free(line);
             continue;
         }
-        tkn = lexer(line);
-        // expand_word(line, env, 0);
+        tkn = lexer(line, env, env->exit_status);
         cmd = parser(tkn);
         if (cmd)
-            execute_all_commands(cmd, env);
+        execute_all_commands(cmd, env);
         free_tok(tkn);
         free_cmds(cmd);
         free(line);
-    }
+	}
     env_free(env);
-    return 0;
 }
