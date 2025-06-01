@@ -31,6 +31,12 @@ void ft_free_arr(char **arr);
 void ft_sort_strarr(char **arr);
 bool is_valid_identifier(const char *str);
 void increment_shlvl(t_env *env);
+void set_var_with_value(t_env *env, char *var, char *name, char *equal_sign);
+void set_var_without_value(t_env *env, char *name);
+int env_set_existing(t_env *env, char *var, char *name, char *equal_sign);
+int env_add_new(t_env *env, char *var, char *name, char *equal_sign);
+void update_home_if_needed(t_env *env, char *name, char *value);
+
 
 
 #endif

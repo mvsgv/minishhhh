@@ -29,6 +29,7 @@ void cleanup_memory(int **pipes, pid_t *pids, int n);
 int create_all_pipes(int **pipes, int num_cmds);
 int fork_all_processes(t_command *cmds, int **pipes, pid_t *pids, t_env *env);
 void close_all_pipes_parent(int **pipes);
-
+void execute_builtin_no_fork(t_command *cmd, t_env *env);
+void copy_str(char *dest, const char *src, int *i);
 
 #endif
