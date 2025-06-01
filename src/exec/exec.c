@@ -45,7 +45,7 @@ int execute_builtin(t_command *cmd, t_env *env)
     return (status);
 }
 
-static void execute_builtin_no_fork(t_command *cmd, t_env *env)
+static void execute_builtin_no_fork(t_command *cmd, t_env *env)   /////EXIT
 {
     int status;
     int stdin_backup;
@@ -114,7 +114,10 @@ char *path_join(const char *dir, const char *file)
         len_file++;
     full_path = malloc(len_dir + len_file + 2);
     if (!full_path)
+    {
+        perror("malloc");
         return (NULL);
+    }
     i = 0;
     copy_str(full_path, dir, &i);
     if (i > 0 && full_path[i - 1] != '/')
@@ -141,7 +144,7 @@ static char *search_in_paths(char **paths, char *cmd)
     return (NULL);
 }
 
-char *get_command_path(char *cmd, t_env *env)
+char *get_command_path(char *cmd, t_env *env)   ////!!!!!!
 {
     char *path_env;
     char **paths;
@@ -160,22 +163,16 @@ char *get_command_path(char *cmd, t_env *env)
     return (result);
 }
 
-static void execute_child_process(t_command *cmd, t_env *env)
+void execute_child_process(t_command *cmd, t_env *env)
 {
-    int status;
     char *cmd_path;
-
-    status = handle_infile(cmd);
-    if (status == 0)
-        status = handle_outfile(cmd);
-    if (status != 0)
+    
+    if (handle_infile(cmd) != 0)
         exit(1);
-
+    if (handle_outfile(cmd) != 0)
+        exit(1);
     if (is_builtin(cmd))
-    {
-        status = execute_builtin(cmd, env);
-        exit(status);
-    }
+        exit(execute_builtin(cmd, env));
     cmd_path = get_command_path(cmd->args[0], env);
     if (!cmd_path)
     {
@@ -196,6 +193,11 @@ void execute_command(t_command *cmd, t_env *env)
 
     if (!cmd || !cmd->args || !cmd->args[0])
         return ;
+    if (!cmd->args[0] || cmd->args[0][0] == '\0')
+    {
+	    env->exit_status = 127;
+	    return ;
+    }
     if (is_builtin(cmd) && (!cmd->next))
         return execute_builtin_no_fork(cmd, env);
     pid = fork();
