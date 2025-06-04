@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:17:17 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/27 19:35:08 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/06/04 15:07:13 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,30 +70,70 @@ static void handle_operator(const char *line, int *i, t_token **list)
     free(operator);
 }
 
-static char *find_quotes(const char *line, int *i)
-{
-    char quote;
-    int start;
-    char    *res;
-
-    quote = line[*i];//storing th quote character in quote
-    (*i)++;
-    start = *i;//start point to the first character after the quote
-    while (line[*i] && line[*i] != quote)
-        (*i)++;
-    res = ft_substr(line, start, *i - start);        
-    if (line[*i] == quote)
-        (*i)++; // skip to the closing quote
-    return (res);
-}
-
 static void handle_quote(const char *line, int *i, t_token **list)
 {
-    char *word;
-
-    word = find_quotes(line, i);
+    char quote = line[*i];
+    int start = *i;
+    (*i)++; // skip opening quote
+    while (line[*i] && line[*i] != quote)
+        (*i)++;
+    if (line[*i] == quote)
+        (*i)++; // skip closing quote
+    // include the quotes in the token
+    char *word = ft_substr(line, start, *i - start);
     add_token(list, word, WORD);
     free(word);
+}
+
+static char *remove_quotes(const char *str)
+{
+    char *res = ft_calloc(ft_strlen(str) + 1, 1);
+    int j = 0;
+    int in_sq = 0, in_dq = 0;
+    for (int i = 0; str[i]; i++)
+    {
+        if (str[i] == '\'' && !in_dq)
+        {
+            in_sq = !in_sq;
+            continue; // skip grouping single quote
+        }
+        if (str[i] == '"' && !in_sq)
+        {
+            in_dq = !in_dq;
+            continue; // skip grouping double quote
+        }
+        res[j++] = str[i];
+    }
+    return res;
+}
+
+// Pseudocode for merging adjacent WORD tokens
+static t_token *merge_words(t_token *list)
+{
+    t_token *cur = list;
+    if (!cur) 
+        return list;
+    cur = cur->next;
+    while (cur && cur->next)
+    {
+        if (cur->type == WORD && cur->next->type == WORD)
+        {
+            char *joined = ft_strjoin(cur->value, cur->next->value);
+            free(cur->value);
+            cur->value = joined;
+            // Remove cur->next from the list
+            t_token *to_free = cur->next;
+            cur->next = cur->next->next;
+            free(to_free->value);
+            free(to_free);
+            // Do not advance cur, as there may be more WORDs to merge
+        }
+        else
+        {
+            cur = cur->next;
+        }
+    }
+    return list;
 }
 
 t_token *lexer(const char *line, t_env *env, int exit_code)
@@ -121,10 +161,13 @@ t_token *lexer(const char *line, t_env *env, int exit_code)
         if (tmp->type == WORD)
         {
             char *expanded = expand_word(tmp->value, env, exit_code);
+            char *final = remove_quotes(expanded);
             free(tmp->value);
-            tmp->value = expanded;
+            free(expanded);
+            tmp->value = final;
         }
         tmp = tmp->next;
     }
+    list = merge_words(list);
     return (list);
 }

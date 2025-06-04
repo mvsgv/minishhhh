@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 15:54:49 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/27 22:01:44 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/05/28 15:02:23 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,26 +60,17 @@ static char *env_var_expansion(const char *str, int *i, t_env *env)
 
     (*i)++;
     start = *i;
-
     // Extract the variable name
     while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
         (*i)++;
-
     key = ft_substr(str, start, *i - start); // Extract the variable name
     if (!key)
         return (NULL);
-
-    printf("Key: %s\n", key);
-
     val = get_env_value(key, env); // Get the value of the variable
-
     tmp = ft_strdup(val); // Duplicate the value (do not include anything before the variable)
     free(key);
-
     if (!tmp)
         return (NULL); // If duplication fails, return NULL
-
-    printf("Expanded variable: %s\n", tmp);
     return (tmp);
 }
 
@@ -107,7 +98,6 @@ static char    *append_char_to_res(char *res, char c)
 
 static void    dq_sq(char c, int *in_sq, int *in_dq)
 {
-    
     if (c == '\'' && !(*in_dq))
         *in_sq = !(*in_sq);
     else if (c == '\"' && !(*in_sq))
