@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 17:53:02 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/09 18:34:26 by mavissar         ###   ########.fr       */
+/*   Created: 2024/05/03 15:04:33 by mavissar          #+#    #+#             */
+/*   Updated: 2025/06/04 17:00:34 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/Minishell.h"
+#include "libft.h"
 
-int		ft_isspace(int c)
+void	ft_putchar_fd(char c, int fd)
 {
-	c = (unsigned char)c;
-	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r'
-		|| c == ' ')
-		return (1);
-	return (0);
+	write(fd, &c, 1);
 }

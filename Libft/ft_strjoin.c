@@ -6,11 +6,11 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:15:45 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/27 20:35:44 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/06/04 17:01:42 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/Minishell.h"
+#include "libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

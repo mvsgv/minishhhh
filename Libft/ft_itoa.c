@@ -6,11 +6,11 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:33:40 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/26 19:56:30 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/06/04 17:00:26 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/Minishell.h"
+#include "libft.h"
 
 static int	get_quantity(int n)
 {

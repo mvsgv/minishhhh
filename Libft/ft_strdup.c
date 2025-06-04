@@ -6,11 +6,11 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 10:37:27 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/06 18:14:07 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/06/04 17:01:39 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/Minishell.h"
+#include "libft.h"
 
 char	*ft_strdup(const char *s1)
 {

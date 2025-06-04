@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 15:25:07 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/14 12:02:52 by mavissar         ###   ########.fr       */
+/*   Created: 2024/04/09 13:29:50 by mavissar          #+#    #+#             */
+/*   Updated: 2025/06/04 17:01:45 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/Minishell.h"
+#include "libft.h"
 
-void	ft_putendl_fd(char *s, int fd)
+size_t	ft_strlen(const char *s)
 {
-	ft_putstr_fd(s, fd);
-	ft_putchar_fd('\n', fd);
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }

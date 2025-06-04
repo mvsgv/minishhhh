@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavissar <mavissar@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/09 11:40:23 by mavissar          #+#    #+#             */
-/*   Updated: 2024/04/16 15:56:51 by mavissar         ###   ########.fr       */
+/*   Created: 2025/06/04 17:00:12 by mavissar          #+#    #+#             */
+/*   Updated: 2025/06/04 17:00:20 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,3 @@ int	ft_isdigit(int c)
 	else
 		return (0);
 }
-/*int	main()
-{
-	printf("%d", ft_isdigit('l'));
-}*/

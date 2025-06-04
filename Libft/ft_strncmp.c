@@ -6,11 +6,11 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 11:10:15 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/09 18:17:38 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/06/04 17:01:55 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/Minishell.h"
+#include "libft.h"
 
 // int	ft_strncmp(const char *s1, const char *s2, size_t n)
 // {

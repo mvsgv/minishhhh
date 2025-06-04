@@ -6,18 +6,17 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:56:03 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/06 18:14:02 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/06/04 17:02:01 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/Minishell.h"
+#include "libft.h"
 
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char *ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*sub;
-	size_t	i;
-	size_t	sub_len;
+	char *sub;
+	size_t i;
+	size_t sub_len;
 
 	if (!s)
 		return (0);
@@ -41,11 +40,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	sub[i] = '\0';
 	return (sub);
 }
-// int	main()
-// {
-// 	char	s[] = "hola";
-
-// 	printf("%s\n", ft_substr(s, 4,2));
-
-// }
-

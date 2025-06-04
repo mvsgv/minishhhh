@@ -1,23 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/09 13:29:50 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/06 18:54:17 by mavissar         ###   ########.fr       */
+/*   Created: 2024/04/09 16:08:15 by mavissar          #+#    #+#             */
+/*   Updated: 2025/06/04 17:00:31 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/Minishell.h"
+#include "libft.h"
 
-size_t	ft_strlen(const char *s)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	size_t	i;
+	unsigned char	*d;
+	unsigned char	*s;
+	size_t			i;
 
 	i = 0;
-	while (s[i])
+	d = (unsigned char *)dst;
+	s = (unsigned char *)src;
+	if (!dst && !src)
+		return (dst);
+	if (dst == src)
+		return (dst);
+	while (i < n)
+	{
+		*(d + i) = *(s + i);
 		i++;
-	return (i);
+	}
+	return (dst);
 }
+/*int	main()
+{
+	unsigned char src[] = "two";
+	unsigned char dst[20] = "one";
+	
+	printf("%s" , ft_memcpy(dst, src, 1));
+}*/

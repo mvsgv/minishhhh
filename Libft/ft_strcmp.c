@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/15 16:00:27 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/26 20:01:08 by mavissar         ###   ########.fr       */
+/*   Created: 2025/06/04 17:00:52 by mavissar          #+#    #+#             */
+/*   Updated: 2025/06/04 17:01:36 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/Minishell.h"
+#include "libft.h"
 
-void	*ft_calloc(size_t count, size_t size)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	unsigned char	*tmp;
+	size_t	i;
 
-	tmp = malloc(count * size);
-	if (!tmp)
-		return (NULL);
-	ft_bzero(tmp, count * size);
-	return (tmp);
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

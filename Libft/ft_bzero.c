@@ -1,41 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/09 16:08:15 by mavissar          #+#    #+#             */
-/*   Updated: 2025/05/06 18:54:12 by mavissar         ###   ########.fr       */
+/*   Created: 2024/04/09 14:35:12 by mavissar          #+#    #+#             */
+/*   Updated: 2025/06/04 16:59:41 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/Minishell.h"
+#include "libft.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+void	ft_bzero(void *s, size_t n)
 {
-	unsigned char	*d;
-	unsigned char	*s;
 	size_t			i;
+	unsigned char	*p;
 
 	i = 0;
-	d = (unsigned char *)dst;
-	s = (unsigned char *)src;
-	if (!dst && !src)
-		return (dst);
-	if (dst == src)
-		return (dst);
+	p = s;
 	while (i < n)
 	{
-		*(d + i) = *(s + i);
+		p[i] = 0;
 		i++;
 	}
-	return (dst);
 }
 /*int	main()
 {
-	unsigned char src[] = "two";
-	unsigned char dst[20] = "one";
-	
-	printf("%s" , ft_memcpy(dst, src, 1));
+	char	s[] = "hello world";
+	ft_bzero(s, 5);
+	printf("%s\n", s);
 }*/
