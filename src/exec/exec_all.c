@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_all.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/04 21:21:58 by mavissar          #+#    #+#             */
+/*   Updated: 2025/06/04 21:26:25 by mavissar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/executor.h"
 
 static void	cleanup_failed_setup(int **pipes, pid_t *pids, int count)
@@ -43,7 +55,7 @@ int	create_all_pipes(int **pipes, int num_cmds)
 void	execute_command(t_command *cmd, t_env *env)
 {
 	pid_t	pid;
-	int	status;
+	int		status;
 
 	if (!cmd || !cmd->args || !cmd->args[0])
 		return ;
@@ -74,8 +86,8 @@ void	execute_command(t_command *cmd, t_env *env)
 
 void	execute_pipeline(t_command *cmds, t_env *env)
 {
-	int	num_cmds;
-	int	**pipes;
+	int		num_cmds;
+	int		**pipes;
 	pid_t	*pids;
 
 	num_cmds = count_cmds(cmds);

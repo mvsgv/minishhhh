@@ -6,13 +6,13 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:53:02 by mavissar          #+#    #+#             */
-/*   Updated: 2025/06/04 17:00:07 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/06/04 21:17:32 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isspace(int c)
+int	ft_isspace(int c)
 {
 	c = (unsigned char)c;
 	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r'

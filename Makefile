@@ -53,7 +53,7 @@ $(OBJDIR)/%.o: src/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT):
-	@$(MAKE) -C Libft
+	@$(MAKE) -s -C Libft
 
 $(NAME): $(OBJ) $(LIBFT)
 	@echo "$(GREEN_APPLE)Compiling minishell...$(RESET)"
@@ -62,12 +62,12 @@ $(NAME): $(OBJ) $(LIBFT)
 
 clean:
 	@$(RM) $(OBJDIR)
-	@$(MAKE) -C Libft clean
+	@$(MAKE) -s -C Libft clean
 	@echo "$(PINK)Cleaned object files.$(RESET)"
 
 fclean: clean
 	@$(RM) $(NAME)
-	@$(MAKE) -C Libft fclean
+	@$(MAKE) -s -C Libft fclean
 
 re: fclean all
 

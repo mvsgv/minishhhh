@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:17:17 by mavissar          #+#    #+#             */
-/*   Updated: 2025/06/04 20:41:58 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/06/04 20:58:59 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ char	*remove_quotes(const char *str)
 	char	*res;
 	int		j;
 	int		in_sq;
+	int		in_dq;
 	int		i;
 
 	i = -1;

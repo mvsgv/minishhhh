@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/04 21:21:28 by mavissar          #+#    #+#             */
+/*   Updated: 2025/06/04 21:24:38 by mavissar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/builtins.h"
 
 int	env_set_existing(t_env *env, char *var, char *name, char *equal_sign)
 {
-	int	i;
+	int		i;
 	char	*existing_equal;
 	size_t	name_len;
 
@@ -31,8 +43,8 @@ int	env_set_existing(t_env *env, char *var, char *name, char *equal_sign)
 
 int	env_add_new(t_env *env, char *var, char *name, char *equal_sign)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	**new_envp;
 
 	i = 0;

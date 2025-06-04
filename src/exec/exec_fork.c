@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_fork.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/04 21:22:19 by mavissar          #+#    #+#             */
+/*   Updated: 2025/06/04 21:25:53 by mavissar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/executor.h"
 
 void	cleanup_memory(int **pipes, pid_t *pids, int n)
@@ -78,7 +90,7 @@ void	child_process(t_command *cmd, int **pipes, int i, t_env *env)
 int	fork_all_processes(t_command *cmds, int **pipes, pid_t *pids, t_env *env)
 {
 	t_command	*cur;
-	int		i;
+	int			i;
 
 	cur = cmds;
 	i = 0;

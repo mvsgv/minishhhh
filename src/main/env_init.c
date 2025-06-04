@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_init.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/04 21:22:53 by mavissar          #+#    #+#             */
+/*   Updated: 2025/06/04 21:23:43 by mavissar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/builtins.h"
 
 void	env_free(t_env *env)
@@ -11,8 +23,6 @@ void	env_free(t_env *env)
 	free(env);
 }
 
-//SHLVL
-
 static int	sanitize_shlvl(int shlvl)
 {
 	if (shlvl < 0)
@@ -25,7 +35,7 @@ static int	sanitize_shlvl(int shlvl)
 void	increment_shlvl(t_env *env)
 {
 	char	*value;
-	int	shlvl;
+	int		shlvl;
 	char	*new_value;
 	char	*shlvl_var;
 
@@ -49,8 +59,8 @@ void	increment_shlvl(t_env *env)
 
 char	**ft_arrdup(char **arr)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
 	char	**dup;
 
 	i = 0;

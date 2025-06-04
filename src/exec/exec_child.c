@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_child.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/04 21:22:12 by mavissar          #+#    #+#             */
+/*   Updated: 2025/06/04 21:25:16 by mavissar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/executor.h"
 #include "../../inc/builtins.h"
 
 char	*path_join(const char *dir, const char *file)
 {
 	char	*full_path;
-	int	len_dir;
-	int	len_file;
-	int	i;
+	int		len_dir;
+	int		len_file;
+	int		i;
 
 	len_dir = 0;
 	len_file = 0;
@@ -32,7 +44,7 @@ char	*path_join(const char *dir, const char *file)
 static char	*search_in_paths(char **paths, char *cmd)
 {
 	char	*full_path;
-	int	i;
+	int		i;
 
 	i = 0;
 	while (paths[i])

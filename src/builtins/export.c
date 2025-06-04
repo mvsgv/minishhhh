@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/04 21:21:35 by mavissar          #+#    #+#             */
+/*   Updated: 2025/06/04 21:24:17 by mavissar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/builtins.h"
 
 void	ft_free_arr(char **arr)
@@ -37,9 +49,9 @@ static void	print_export_var(char *var)
 
 void	ft_sort_strarr(char **arr)
 {
-	int	i;
-	int	j;
-	int	len;
+	int		i;
+	int		j;
+	int		len;
 	char	*temp;
 
 	len = 0;
@@ -65,7 +77,7 @@ void	ft_sort_strarr(char **arr)
 
 static int	export_no_args(t_env *env)
 {
-	int	i;
+	int		i;
 	char	**envp_copy;
 
 	envp_copy = ft_arrdup(env->envp);

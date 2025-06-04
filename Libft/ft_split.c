@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavissar <mavissar@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:34:25 by mavissar          #+#    #+#             */
-/*   Updated: 2024/05/07 18:13:11 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/06/04 21:39:35 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_free(char **arr)
+void	ft_free(char **arr)
 {
 	int	i;
 
