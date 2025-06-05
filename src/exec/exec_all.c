@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 21:21:58 by mavissar          #+#    #+#             */
-/*   Updated: 2025/06/04 21:26:25 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/06/05 17:43:17 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,53 +31,39 @@ static void	cleanup_failed_setup(int **pipes, pid_t *pids, int count)
 	free(pids);
 }
 
-int	create_all_pipes(int **pipes, int num_cmds)
+static void	handle_parent_process(pid_t pid, t_env *env)
 {
-	int	i;
+	int	status;
 
-	i = 0;
-	while (i < num_cmds - 1)
-	{
-		pipes[i] = malloc(sizeof(int) * 2);
-		if (!pipes[i])
-			return (-1);
-		if (pipe(pipes[i]) < 0)
-		{
-			free(pipes[i]);
-			return (-1);
-		}
-		i++;
-	}
-	pipes[i] = NULL;
-	return (0);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		env->exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		env->exit_status = 128 + WTERMSIG(status);
 }
 
 void	execute_command(t_command *cmd, t_env *env)
 {
 	pid_t	pid;
-	int		status;
 
 	if (!cmd || !cmd->args || !cmd->args[0])
 		return ;
-	if (!cmd->args[0] || cmd->args[0][0] == '\0')
+	if (cmd->args[0][0] == '\0')
 	{
 		env->exit_status = 127;
 		return ;
 	}
-	if (is_builtin(cmd) && (!cmd->next))
-		return (execute_builtin_no_fork(cmd, env));
+	if (is_builtin(cmd) && !cmd->next)
+	{
+		execute_builtin_no_fork(cmd, env);
+		return ;
+	}
 	pid = fork();
 	if (pid == 0)
 		execute_child_process(cmd, env);
-	if (pid > 0)
-	{
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			env->exit_status = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			env->exit_status = 128 + WTERMSIG(status);
-	}
-	if (pid < 0)
+	else if (pid > 0)
+		handle_parent_process(pid, env);
+	else
 	{
 		perror("fork");
 		env->exit_status = 1;

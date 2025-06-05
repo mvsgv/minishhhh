@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 21:22:31 by mavissar          #+#    #+#             */
-/*   Updated: 2025/06/04 21:25:37 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/06/05 17:43:49 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,25 @@ void	copy_str(char *dest, const char *src, int *i)
 		(*i)++;
 		j++;
 	}
+}
+
+int	create_all_pipes(int **pipes, int num_cmds)
+{
+	int	i;
+
+	i = 0;
+	while (i < num_cmds - 1)
+	{
+		pipes[i] = malloc(sizeof(int) * 2);
+		if (!pipes[i])
+			return (-1);
+		if (pipe(pipes[i]) < 0)
+		{
+			free(pipes[i]);
+			return (-1);
+		}
+		i++;
+	}
+	pipes[i] = NULL;
+	return (0);
 }
