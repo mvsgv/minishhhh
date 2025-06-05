@@ -19,7 +19,7 @@ SRC_BUILTINS    = builtins/cd_pwd.c builtins/echo_exit.c builtins/env_set.c buil
 MAIN            = main/main.c main/env_init.c
 SRC_EXEC        = exec/exec_all.c exec/exec_builtins.c exec/exec_child.c exec/exec_fork.c exec/handle_signal.c exec/utils.c
 SRC_LEXER       = lexer/lexer.c lexer/lexer_utils.c lexer/lexer2.c
-SRC_EXPANDER    = expander/expander.c
+SRC_EXPANDER    = expander/expander.c expander/expander_utils.c
 SRC_PARSER      = parser/input.c parser/pipes.c parser/parser_utils.c parser/parser.c
 SRC_UTILS       = utils/utils.c utils/utils2.c
 

@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:17:17 by mavissar          #+#    #+#             */
-/*   Updated: 2025/06/04 20:58:59 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/06/05 17:34:05 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,22 +82,19 @@ void	handle_operator(const char *line, int *i, t_token **list)
 	free(operator);
 }
 
-void	handle_quote(const char *line, int *i, t_token **list)
+static int	process_quote_char(char c, int *in_sq, int *in_dq)
 {
-	char	quote;
-	int		start;
-	char	*word;
-
-	quote = line[*i];
-	start = *i;
-	(*i)++;
-	while (line[*i] && line[*i] != quote)
-		(*i)++;
-	if (line[*i] == quote)
-		(*i)++;
-	word = ft_substr(line, start, *i - start);
-	add_token(list, word, WORD);
-	free(word);
+	if (c == '\'' && !*in_dq)
+	{
+		*in_sq = !*in_sq;
+		return (1);
+	}
+	if (c == '"' && !*in_sq)
+	{
+		*in_dq = !*in_dq;
+		return (1);
+	}
+	return (0);
 }
 
 char	*remove_quotes(const char *str)
@@ -113,18 +110,12 @@ char	*remove_quotes(const char *str)
 	in_dq = 0;
 	j = 0;
 	res = ft_calloc(ft_strlen(str) + 1, 1);
+	if (!res)
+		return (NULL);
 	while (str[++i])
 	{
-		if (str[i] == '\'' && !in_dq)
-		{
-			in_sq = !in_sq;
+		if (process_quote_char(str[i], &in_sq, &in_dq))
 			continue ;
-		}
-		if (str[i] == '"' && !in_sq)
-		{
-			in_dq = !in_dq;
-			continue ;
-		}
 		res[j++] = str[i];
 	}
 	return (res);

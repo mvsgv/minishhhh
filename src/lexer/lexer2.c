@@ -6,12 +6,17 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 20:37:46 by mavissar          #+#    #+#             */
-/*   Updated: 2025/06/04 20:42:15 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/06/05 17:26:39 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/lexer.h"
-
+// If the current token and the next token are both WORD and there is no space 
+	//before the next token
+// we merge them into a single WORD token
+// This is useful for cases like "echo hello world" where "hello" and "world"
+	// should be merged
+// into a single token "hello world"
 static t_token	*merge_words(t_token *list)
 {
 	t_token	*cur;
@@ -24,7 +29,8 @@ static t_token	*merge_words(t_token *list)
 	cur = cur->next;
 	while (cur && cur->next)
 	{
-		if (cur->type == WORD && cur->next->type == WORD)
+		if (cur->type == WORD && cur->next->type == WORD
+			&& cur->next->space_before == 0)
 		{
 			joined = ft_strjoin(cur->value, cur->next->value);
 			free(cur->value);
