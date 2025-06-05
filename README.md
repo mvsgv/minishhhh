@@ -387,6 +387,44 @@ minishell> echo "'""'" | cat -e
 
 
 
+static void	handle_parent_process(pid_t pid, t_env *env)
+{
+	int	status;
+
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		env->exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		env->exit_status = 128 + WTERMSIG(status);
+}
+
+void	execute_command(t_command *cmd, t_env *env)
+{
+	pid_t	pid;
+
+	if (!cmd || !cmd->args || !cmd->args[0])
+		return ;
+	if (cmd->args[0][0] == '\0')
+	{
+		env->exit_status = 127;
+		return ;
+	}
+	if (is_builtin(cmd) && !cmd->next)
+	{
+		execute_builtin_no_fork(cmd, env);
+		return ;
+	}
+	pid = fork();
+	if (pid == 0)
+		execute_child_process(cmd, env);
+	else if (pid > 0)
+		handle_parent_process(pid, env);
+	else
+	{
+		perror("fork");
+		env->exit_status = 1;
+	}
+}
 
 
 
