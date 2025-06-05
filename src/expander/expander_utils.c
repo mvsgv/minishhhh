@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 17:19:01 by mavissar          #+#    #+#             */
-/*   Updated: 2025/06/05 17:20:24 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:56:08 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,12 @@ void	dq_sq(char c, int *in_sq, int *in_dq)
 		*in_sq = !(*in_sq);
 	else if (c == '\"' && !(*in_sq))
 		*in_dq = !(*in_dq);
+}
+
+int	handle_exit_code(int *i, t_expand_data *data)
+{
+	*data->res = exit_code_expand(i, data->exit_cd, *data->res);
+	if (!*data->res)
+		return (1);
+	return (0);
 }

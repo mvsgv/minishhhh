@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 15:54:49 by mavissar          #+#    #+#             */
-/*   Updated: 2025/06/05 17:24:14 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:55:58 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,6 @@ Is used when there’s no special $ expansion needed
 Is memory-safe (free(res))
 Ensures quote handling or $ logic doesn’t interfere
 */
-static int	handle_exit_code(int *i, t_expand_data *data)
-{
-	*data->res = exit_code_expand(i, data->exit_cd, *data->res);
-	if (!*data->res)
-		return (1);
-	return (0);
-}
-
 static int	handle_env_var(const char *str, int *i, t_expand_data *data)
 {
 	char	*tmp;
@@ -111,27 +103,46 @@ static int	process_char(const char *str, int *i, t_expand_data *data,
 	return (0);
 }
 
+static int	init_expand_data(t_expand_data *data, t_env *env, int exit_cd)
+{
+	data->res = malloc(sizeof(char *));
+	if (!data->res)
+		return (0);
+	*data->res = ft_calloc(1, 1);
+	if (!*data->res)
+	{
+		free(data->res);
+		return (0);
+	}
+	data->env = env;
+	data->exit_cd = exit_cd;
+	return (1);
+}
+
 char	*expand_word(const char *str, t_env *env, int exit_cd)
 {
 	int				i;
 	int				in_sq;
 	int				in_dq;
 	t_expand_data	data;
+	char			*result;
 
 	i = 0;
 	in_dq = 0;
 	in_sq = 0;
-	data.res = malloc(sizeof(char *));
-	*data.res = ft_calloc(1, 1);
-	data.env = env;
-	data.exit_cd = exit_cd;
-	if (!*data.res)
+	if (!init_expand_data(&data, env, exit_cd))
 		return (NULL);
 	while (str[i])
 	{
 		dq_sq(str[i], &in_sq, &in_dq);
 		if (process_char(str, &i, &data, &in_sq))
+		{
+			free(*data.res);
+			free(data.res);
 			return (NULL);
+		}
 	}
-	return (*data.res);
+	result = *data.res;
+	free(data.res);
+	return (result);
 }

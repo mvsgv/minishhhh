@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:20:43 by mavissar          #+#    #+#             */
-/*   Updated: 2025/06/05 17:24:32 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:55:31 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ void					handle_word(const char *line, int *i, t_token **list);
 char					*exit_code_expand(int *i, int exit_cd, char *res);
 char					*env_var_expansion(const char *str, int *i, t_env *env);
 char					*append_char_to_res(char *res, char c);
+int						handle_exit_code(int *i, t_expand_data *data);
 void					dq_sq(char c, int *in_sq, int *in_dq);
 #endif

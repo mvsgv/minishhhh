@@ -6,7 +6,7 @@
 /*   By: mavissar <mavissar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:17:17 by mavissar          #+#    #+#             */
-/*   Updated: 2025/06/05 17:34:05 by mavissar         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:54:47 by mavissar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,22 @@ char	*remove_quotes(const char *str)
 		res[j++] = str[i];
 	}
 	return (res);
+}
+
+void	handle_quote(const char *line, int *i, t_token **list)
+{
+	char	quote;
+	int		start;
+	char	*word;
+
+	quote = line[*i];
+	start = *i;
+	(*i)++;
+	while (line[*i] && line[*i] != quote)
+		(*i)++;
+	if (line[*i] == quote)
+		(*i)++;
+	word = ft_substr(line, start, *i - start);
+	add_token(list, word, WORD);
+	free(word);
 }
