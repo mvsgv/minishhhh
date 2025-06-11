@@ -59,6 +59,85 @@ Signaux
 • Répétez plusieurs fois en utilisant des commandes différentes.
 • En cas de crash, cochez le fag "crash".
 • Si quelque chose ne marche pas, cochez le fag "incompleteEssayez ctrl-\ après avoir lancé une commande bloquante, comme cat
+Double Quotes
+• Exécutez une commande simple avec des arguments, mais cette fois utilisez des guillemets (rojoutez des ;' et des espaces entre les guillemets).
+• Essayez une commande comme : echo "cat lol.e | cat > lol.c*
+• N'essayez pas S.
+• En cas de crash, cochez le flag "crash".
+• Si quelque chose ne marche pas, cochez le flag "incomplete work".
+& Yes
+Single Quotes
+• Exécutez des commandes avec des single quotes dans les arguments.
+• Essayez des arguments vides.
+• Faites des tests avec des variobles d'environnement, des espaces, des pipes, des redirections entre les guillemels.
+• echo 'SUSER' doit afficher "SUSER"
+• Rien ne devrait étre interprété.
+• Yes
+XNo
+ChV
+• Vérifiez qu'env vous offiche bien les variobles d'environnement.
+• Yes
+XNo
+export
+• Exportez des variables d'environnement, dont certoines pour remplacer les anciennes.
+• Vérifiez le résultat avec env.
+& Yes
+tinca
+• Exportez des variables d'environnement, dont certaines pour remplacer les anciennes.
+• Utilisez unset pour en retirer
+• Véritiez le résultat avec env
+C Yes
+• Uilisez la commande cd pour vous déplacer dans l'arborescence e uilisez /bin/Is pour vérifier que vous étes dans le bon répertoire.
+• Répétez ce test plusieurs fois avec des cd qui fonctionnent et qui ne fonctionnent pas.
+• Essayez aussi"' et "' en arguments.
+C Yes
+pwd
+• Utlisez la commande pwd, avec el sans argument.
+• Répétez co test plusieurs fois dons différents ré pertoires.
+• Essayez"' et".' en orguments.
+Yes
+Chemin relatif
+• Exécutez des commandes en utilisant un chemin relatif.
+• Répétez co lest plusieurs fois dans d'autres dossier avec un chemin relatii complexe (beaucoup d. ..).
+C Yes
+PATH d'environnement
+• Exécutez des commandes mais sans PATH (ls, wc, awk, etc...).
+• Retirez le SPATH et vérifiez si los commandos ne fonctionnent plus.
+• Mettez plusieurs répertoires à PATH (directory l directory2) et vérifiez qu'ils sont bien évalués de gauche à droito.
+G Yes
+Redirection
+• Exécutez des commandes avec les redirections < el/ ou ?
+• Répétez co test plusieurs fois avec différentes commandes el différents orguments el, quelques fois, uilisez »> au lieu de
+Redirection
+• Exécutez des commandes avec les redirections < et/ou >
+• Répétez ce test plusieurs fois avec différentes commandes et différents arguments et, quelques fois, utilisez » au lieu de >.
+• Vérifiez si plusieurs instances de la même redirection échouent.
+• Testez les redirections avec « (cela ne doit pas forcément mettre à jour 'historique).
+Yes
+X No
+Pipes
+• Exécutez des commandes avec des pipes telles que 'cat file | grep bla | more'
+• Répétez plusieurs fois avec différentes commandes et différents arguments.
+• Essayez des commandes qui échouent telles que Is fichiernul | grep bla | more'
+• Mixez les pipes et les redirections.
+C Yes
+XNo
+Soyons fous ! Et l'historique
+• Entrez une commande, puis ctrl.C, et appuyez sur "Entrée". Le buffer devrait être vide et il ne devrait plus rien avoir à exécuter.
+• Peut-on naviguer dans l'historique avec Haut et Bas (profitez-en pour relancer des commandes) ?
+• Exécutez des commandes qui ne fonctionnent pas telles que 'dskdskdksd' et vérifiez que tout fonctionne comme prévu.
+• cat | cat|s' doit fonctionner.
+• Essayez des commandes vraiment, vraiment longues avec des tonnes d'arguments.
+• Amusez-vous avec ce superbe minishell et profitez-en.
+• Yes
+X No
+Variables d'environnement
+• Exécutez echo avec des variables d'environnement (Svariable) en argument.
+• Assurez-vous que S est interprété correctement.
+• Vérifiez que les guillemets autour des Svariables fonctionnent correctement (comme dans bash).
+• Si USER n'existe pas, définissez-la.
+• Ainsi, echo "$USER" devrait afficher la valeur de SUSER.
+
 # minishhhh
 🗺️ TON PLAN DE ROUTE MINISHELL – ÉTAPE PAR ÉTAPE
 
