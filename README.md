@@ -1,3 +1,64 @@
+• Utilisez "make -n" to pour vous assurer que le projet compile avec "-Wall -Wextra -Werror". Si ce n'est pas le cas, cochez le lag "invalid compilation".
+• Le minishell compile sans aucune erreur. Si ce n'est pas le cas, cochez le flag.
+• Le Makefile ne doit pas re-link. Si ce n'est pas le cas, cochez le flag.
+C Yes
+XNo
+Commande simple et variables globales
+• Exécutez une commande simple avec un PATH absolu tel que /bin/ls ou n'importe quelle autre commande sans option.
+• Combien de variables globales y a-t-il ? Pourquoi ? Demandez à la personne évaluée de vous donner un exemple concret pour démontrer que leur usage est obligatoire et cohérent.
+• Testez une commande vide.
+• Test ez seulement des espaces et des tabs.
+• En cas de crash, cochez le flag "crash".
+• Si quelque chose ne marche pas, cochez le fag "incomplete work".
+J Yes
+Arguments
+• Exécutez une commande simple avec un PATH absolu tel que /bin/ls ou n'importe quelle autre commande, avec opfion mais sans " (single quotes) ni * (double quotes).
+• Répétez ce test plusieurs fois avec différentes commandes et différents arguments.
+• En cas de crash, cochez le flag "crash".
+• Si quelque chose ne marche pas, cochez le flag "incomplete work".
+Yes
+echo
+• Lancez la commande echo avec et sans argument ou options, ou avec l'option -n.
+• Répétez ce test plusieurs fois avec différents arguments.
+• En cas de crash, cochez le flag "crash".
+• Si quelque chose ne marche pas, cochez le flag "incomplete work".
+Yes
+exit
+• Lancez la commande exit avec et sans arguments.
+• Répétez ce test plusieurs fois avec différents arguments.
+• N'oubliez pas de relancer le minishell.
+• En cas de crash, cochez le flag "crash".
+Valeur de retour d'un processus
+• Exécutez des commandes simple avec un chemin absolu tel que /bin/Is ou n'importe quelle autre commande avec des arguments mais sans " (single quotes) ni * (double quotes), puis lancez "echo S?*. Vérifiez la valeur affichée. Vous pouvez le refaire dans bash et comparer.
+• Répétez ce test plusieurs fois avec différentes commandes et différents arguments.
+• Utilisez des commandes qui ne fonctionnent pas telles que /bin/Is fichiernul'.
+• Essayez des expressions telles que $2 + S?
+• En cas de crash, cochez le flag "crash".
+• Si quelque chose ne marche pas, cochez le fag "incomplete work"
+• Yes
+Signaux
+• ctrl-C dans un prompt vide devrait afficher une nouvelle ligne avec un nouveau prompt.
+• ctrl-\ dans un prompt vide ne devrait rien faire.
+• ctrl-D dans un prompt vide devrait quitter minishell. Ensuite, relancez-le,
+• ctrl.C dans un prompt après avoir écrit des choses devrait afficher une nouvelle ligne avec un nouveau prompl.
+• Egalement, le buffer devrait être vide. Appuyez sur "Entrée" afin de vous assurer que la ligne précédente a été exécutée.
+• ctri-D dans un prompt après avoir écrit des choses ne devrait rien faire,
+• ctrl-\ dans un prompt après avoir écrit des choses ne devrait rien faire.
+• Essayez ctrl-C après avoir lancé une commande bloquante, comme cat ou grep sans argument.
+• Signaux
+• ctrl-C dans un prompt vide devrait afficher une nouvelle ligne avec un nouveau prompt.
+• ctrl-\ dans un prompt vide ne devrait rien faire.
+• ctrl-D dans un prompt vide devrait quitter minishell. Ensuite, relancez-le,
+• ctrl.C dans un prompt après avoir écrit des choses devrait afficher une nouvelle ligne avec un nouveau prompl.
+• Egalement, le buffer devrait être vide. Appuyez sur "Entrée" afin de vous assurer que la ligne précédente a été exécutée.
+• ctri-D dans un prompt après avoir écrit des choses ne devrait rien faire,
+• ctrl-\ dans un prompt après avoir écrit des choses ne devrait rien faire.
+• Essayez ctrl-C après avoir lancé une commande bloquante, comme cat ou grep sans argument.
+• Essayez ctrl-\ après avoir lancé une commande bloquante, comme cat ou grep sans argument.
+• Essayez ctrl-D après avoir lancé une commande bloquante, comme cat ou grep sans argument.
+• Répétez plusieurs fois en utilisant des commandes différentes.
+• En cas de crash, cochez le fag "crash".
+• Si quelque chose ne marche pas, cochez le fag "incompleteEssayez ctrl-\ après avoir lancé une commande bloquante, comme cat
 # minishhhh
 🗺️ TON PLAN DE ROUTE MINISHELL – ÉTAPE PAR ÉTAPE
 
